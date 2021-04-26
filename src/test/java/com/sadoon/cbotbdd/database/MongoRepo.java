@@ -1,0 +1,22 @@
+package com.sadoon.cbotbdd.database;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
+public class MongoRepo implements Repository {
+    private MongoCollection<Document> users;
+
+    public MongoRepo() {
+        MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"));
+        MongoDatabase database = mongoClient.getDatabase("test");
+        users = database.getCollection("user");
+    }
+
+    @Override
+    public void deleteAllUsers() {
+        users.deleteMany(new Document());
+    }
+}
