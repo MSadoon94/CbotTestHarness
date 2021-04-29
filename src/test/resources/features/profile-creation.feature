@@ -6,7 +6,7 @@ Feature: profile creation
 
     When user submits these values
 
-      | username | password | profile name |
-      | john     | doe      | test profile |
+      | profile name | password     |
+      | testProfile  | testPassword |
 
     Then profile will be created with same values
