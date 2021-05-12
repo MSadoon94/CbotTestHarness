@@ -19,9 +19,11 @@ public class ProfileCreationGlue {
 
     private WebDriver driver;
     private ProfileCreationPage creationPage;
+    private String name, pass;
 
     @Before
     public void setUp(){
+
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         creationPage = PageFactory.initElements(driver, ProfileCreationPage.class);
@@ -30,15 +32,15 @@ public class ProfileCreationGlue {
     @Given("user has navigated to profile creation page")
     public void userHasNavigatedToProfileCreationPage() {
 
-        driver.get("http://localhost:3000/profile-creation");
+        driver.get("http://localhost:3000/cryptoProfile");
 
         assertThat(creationPage.getHeading().getText(), is("Profile Creation"));
     }
 
     @When("user submits these values")
     public void userSubmitsTheseValues(DataTable table) {
-        String name = table.cell(1,0);
-        String pass = table.cell(1,1);
+        name = table.cell(1,0);
+        pass = table.cell(1,1);
 
         creationPage.getName().sendKeys(name);
         creationPage.getPass().sendKeys(pass);
@@ -48,6 +50,7 @@ public class ProfileCreationGlue {
 
     @Then("profile will be created with same values")
     public void profileWillBeCreatedWithSameValues() {
+        assertThat( creationPage.getSubmitOutcome().getText(), is(name + " was created successfully."));
     }
 
     @After

@@ -1,8 +1,11 @@
 package com.sadoon.cbotbdd.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProfileCreationPage {
 
@@ -11,7 +14,7 @@ public class ProfileCreationPage {
     @FindBy(className = "title")
     private WebElement heading;
 
-    @FindBy(id = "pname")
+    @FindBy(id = "name")
     private WebElement name;
 
     @FindBy(id = "pass")
@@ -19,9 +22,11 @@ public class ProfileCreationPage {
 
     @FindBy(id = "submit")
     private WebElement submitButton;
+    @FindBy(className = "outcome")
+    private WebElement submitOutcome;
 
-    public ProfileCreationPage(WebDriver aDriver) {
-        driver = aDriver;
+    public ProfileCreationPage(WebDriver driver) {
+        this.driver = driver;
     }
 
     public WebElement getHeading() {
@@ -38,5 +43,11 @@ public class ProfileCreationPage {
 
     public WebElement getSubmitButton() {
         return submitButton;
+    }
+
+    public WebElement getSubmitOutcome(){
+       WebDriverWait waitForSubmit= new WebDriverWait(driver, 10);
+       waitForSubmit.until(ExpectedConditions.not(ExpectedConditions.textToBe(By.className("outcome"), "")));
+        return submitOutcome;
     }
 }
