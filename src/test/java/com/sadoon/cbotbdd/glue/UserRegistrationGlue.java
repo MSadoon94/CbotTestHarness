@@ -1,5 +1,7 @@
 package com.sadoon.cbotbdd.glue;
 
+import com.sadoon.cbotbdd.database.MongoRepo;
+import com.sadoon.cbotbdd.database.Repository;
 import com.sadoon.cbotbdd.pages.UserRegistrationPage;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
@@ -19,11 +21,12 @@ public class UserRegistrationGlue {
 
     private WebDriver driver;
     private UserRegistrationPage page;
+    private Repository repo = new MongoRepo();
     private String name, pass;
+
 
     @Before
     public void setUp(){
-
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         page = PageFactory.initElements(driver, UserRegistrationPage.class);
@@ -64,6 +67,11 @@ public class UserRegistrationGlue {
     @After
     public void tearDown(){
         driver.close();
+    }
+
+    @After("@login")
+    public void deleteUser(){
+        repo.deleteUser(name);
     }
 
     private void inputNameAndPass(){

@@ -11,6 +11,7 @@ Feature: user registration
 
     Then user will be created with same values
 
+  @login
   Scenario: A user enters correct credentials and is successfully logged in to profile
 
     Given user has navigated to user registration page
