@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ProfileCreationPage {
+public class UserRegistrationPage {
 
     private final WebDriver driver;
 
@@ -20,12 +20,16 @@ public class ProfileCreationPage {
     @FindBy(id = "pass")
     private WebElement pass;
 
-    @FindBy(id = "submit")
-    private WebElement submitButton;
+    @FindBy(id = "createButton")
+    private WebElement createButton;
+
+    @FindBy(id = "loginButton")
+    private WebElement loginButton;
+
     @FindBy(className = "outcome")
     private WebElement submitOutcome;
 
-    public ProfileCreationPage(WebDriver driver) {
+    public UserRegistrationPage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -41,9 +45,11 @@ public class ProfileCreationPage {
         return pass;
     }
 
-    public WebElement getSubmitButton() {
-        return submitButton;
+    public WebElement getCreateButton() {
+        return createButton;
     }
+
+    public WebElement getLoginButton(){return loginButton;}
 
     public WebElement getSubmitOutcome(){
        WebDriverWait waitForSubmit= new WebDriverWait(driver, 10);
