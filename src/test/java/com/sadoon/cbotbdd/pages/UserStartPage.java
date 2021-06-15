@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class UserRegistrationPage {
+public class UserStartPage {
 
     private final WebDriver driver;
 
@@ -29,11 +29,20 @@ public class UserRegistrationPage {
     @FindBy(className = "outcome")
     private WebElement submitOutcome;
 
-    public UserRegistrationPage(WebDriver driver) {
+
+    public UserStartPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public WebElement getHeading() {
+        return heading;
+    }
+
+    public WebElement getHomePageHeading(){
+        WebDriverWait waitForRedirect = new WebDriverWait(driver, 5);
+
+        waitForRedirect.until(ExpectedConditions.textToBePresentInElement(heading,"User Home"));
+
         return heading;
     }
 
@@ -52,8 +61,12 @@ public class UserRegistrationPage {
     public WebElement getLoginButton(){return loginButton;}
 
     public WebElement getSubmitOutcome(){
-       WebDriverWait waitForSubmit= new WebDriverWait(driver, 10);
-       waitForSubmit.until(ExpectedConditions.not(ExpectedConditions.textToBe(By.className("outcome"), "")));
+       WebDriverWait waitForSubmit= new WebDriverWait(driver, 5);
+
+       //Wait until outcome is not blank.
+       waitForSubmit.until(ExpectedConditions.not(
+               ExpectedConditions.textToBe(By.className("outcome"), "")));
+
         return submitOutcome;
     }
 }

@@ -2,7 +2,7 @@ package com.sadoon.cbotbdd.glue;
 
 import com.sadoon.cbotbdd.database.MongoRepo;
 import com.sadoon.cbotbdd.database.Repository;
-import com.sadoon.cbotbdd.pages.UserRegistrationPage;
+import com.sadoon.cbotbdd.pages.UserStartPage;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -17,10 +17,10 @@ import org.openqa.selenium.support.PageFactory;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class UserRegistrationGlue {
+public class UserStartGlue {
 
     private WebDriver driver;
-    private UserRegistrationPage page;
+    private UserStartPage page;
     private Repository repo = new MongoRepo();
     private String name, pass;
 
@@ -29,17 +29,17 @@ public class UserRegistrationGlue {
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        page = PageFactory.initElements(driver, UserRegistrationPage.class);
+        page = PageFactory.initElements(driver, UserStartPage.class);
     }
 
-    @Given("user has navigated to user registration page")
-    public void userHasNavigatedToUserCreationPage(DataTable table) {
+    @Given("user has navigated to user start page")
+    public void userHasNavigatedToUserStartPage(DataTable table) {
         name = table.cell(1,0);
         pass = table.cell(1,1);
 
-        driver.get("http://localhost:3000/authenticate");
+        driver.get("http://localhost:3000/start");
 
-        assertThat(page.getHeading().getText(), is("User Creation"));
+        assertThat(page.getHeading().getText(), is("User Start"));
     }
 
     @When("user submits these values for user creation")
@@ -59,9 +59,10 @@ public class UserRegistrationGlue {
         assertThat(page.getSubmitOutcome().getText(), is(name + " was created successfully."));
     }
 
-    @Then("user will be logged in")
-    public void userWillBeLoggedIntoProfile(){
-        assertThat(page.getSubmitOutcome().getText(), is("Welcome back, " + name));
+    @Then("user will be redirected to user home page")
+    public void userWillBeRedirectedToUserHomePage(){
+        assertThat(page.getHomePageHeading().getText(), is("User Home"));
+//        assertThat(page.getSubmitOutcome().getText(), is("Welcome back, " + name));
     }
 
     @After

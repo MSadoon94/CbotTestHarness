@@ -14,7 +14,7 @@ public class MongoRepo implements Repository {
                     "@cbotprofiles.5acgt.mongodb.net" +
                     "/test?retryWrites=true&w=majority");
     private final MongoDatabase database = client.getDatabase("test");
-    private final MongoCollection<Document> users = database.getCollection("users");
+    private final MongoCollection<Document> users = database.getCollection("user");
 
 
     @Override
