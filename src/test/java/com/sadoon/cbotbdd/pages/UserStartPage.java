@@ -38,10 +38,10 @@ public class UserStartPage {
         return heading;
     }
 
-    public WebElement getHomePageHeading(){
+    public WebElement getHomePageHeading() {
         WebDriverWait waitForRedirect = new WebDriverWait(driver, 5);
 
-        waitForRedirect.until(ExpectedConditions.textToBePresentInElement(heading,"User Home"));
+        waitForRedirect.until(ExpectedConditions.textToBePresentInElement(heading, "User Home"));
 
         return heading;
     }
@@ -58,14 +58,16 @@ public class UserStartPage {
         return createButton;
     }
 
-    public WebElement getLoginButton(){return loginButton;}
+    public WebElement getLoginButton() {
+        return loginButton;
+    }
 
-    public WebElement getSubmitOutcome(){
-       WebDriverWait waitForSubmit= new WebDriverWait(driver, 5);
+    public WebElement getSubmitOutcome() {
+        WebDriverWait waitForSubmit = new WebDriverWait(driver, 5);
 
-       //Wait until outcome is not blank.
-       waitForSubmit.until(ExpectedConditions.not(
-               ExpectedConditions.textToBe(By.className("outcome"), "")));
+        //Wait until outcome is not blank.
+        waitForSubmit.until(ExpectedConditions.not(
+                ExpectedConditions.textToBe(By.className("outcome"), "")));
 
         return submitOutcome;
     }

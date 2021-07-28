@@ -11,14 +11,14 @@ public class DataTableConfig {
 
     private final ObjectMapper mapper;
 
-    public DataTableConfig(){
+    public DataTableConfig() {
         mapper = new ObjectMapper();
     }
 
     @DefaultDataTableCellTransformer
     @DefaultDataTableEntryTransformer
     @DefaultParameterTransformer
-    public Object transform(Object from, Type to){
+    public Object transform(Object from, Type to) {
         return mapper.convertValue(from, mapper.constructType(to));
     }
 }
