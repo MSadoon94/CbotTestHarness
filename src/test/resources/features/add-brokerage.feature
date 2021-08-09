@@ -11,7 +11,6 @@ Feature: add brokerage
     And user will be redirected to user home page
 
 
-  @addBrokerage
   Scenario: User successfully adds a kraken brokerage account to their user account
 
     Given user selects add kraken brokerage

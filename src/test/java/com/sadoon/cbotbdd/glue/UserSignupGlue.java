@@ -56,4 +56,9 @@ public class UserSignupGlue {
         page.getPass().clear();
     }
 
+    @Then("user will not be able to click the sign up button")
+    public void userWillNotBeAbleToClickTheSignUpButton() {
+        page.getCreateButton().click();
+        assertThat(page.getCreateButton().isEnabled(), is(false));
+    }
 }
