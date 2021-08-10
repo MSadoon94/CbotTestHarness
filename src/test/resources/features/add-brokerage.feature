@@ -5,7 +5,7 @@ Feature: add brokerage
     Given user has navigated to signup page
     And user enters these values
       | user name | password     |
-      | TestUser  | TestPassword |
+      | TestUser  | TestPassword1- |
     And clicks signup
     And clicks login
     And user will be redirected to user home page

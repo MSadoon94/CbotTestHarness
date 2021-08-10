@@ -5,7 +5,7 @@ Feature: user login
     Given user has navigated to signup page
     And user enters these values
       | user name | password     |
-      | TestUser  | TestPassword |
+      | TestUser  | TestPassword1- |
     And clicks signup
 
   Scenario: A user enters correct credentials and is successfully redirected to user home page
@@ -13,7 +13,7 @@ Feature: user login
     Given user has navigated to login page
     When user enters these values
       | user name | password     |
-      | TestUser  | TestPassword |
+      | TestUser  | TestPassword1- |
     And clicks login
     Then user will be redirected to user home page
 
@@ -22,6 +22,6 @@ Feature: user login
     Given user has navigated to login page
     When user enters these values
       | user name | password     |
-      | Testuser  | Testpassword |
+      | Testuser  | TestPassword1- |
     And clicks login
     Then user will see failed login message
