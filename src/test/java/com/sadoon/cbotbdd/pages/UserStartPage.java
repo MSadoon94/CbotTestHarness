@@ -20,6 +20,9 @@ public class UserStartPage {
     @FindBy(id = "pass")
     private WebElement pass;
 
+    @FindBy(id = "confirmPass")
+    private WebElement confirmPass;
+
     @FindBy(id = "createButton")
     private WebElement createButton;
 
@@ -51,6 +54,10 @@ public class UserStartPage {
 
     public WebElement getPass() {
         return pass;
+    }
+
+    public WebElement getConfirmPass() {
+        return confirmPass;
     }
 
     public WebElement getCreateButton() {
