@@ -38,6 +38,12 @@ public class UserSignupGlue {
 
         page.getName().sendKeys(name);
         page.getPass().sendKeys(table.cell(1, 1));
+
+    }
+
+    @And("enters this value for password confirmation")
+    public void entersThisValueForPasswordConfirmation(DataTable table){
+        page.getConfirmPass().sendKeys(table.cell(1, 0));
     }
 
     @And("clicks signup")
@@ -56,4 +62,9 @@ public class UserSignupGlue {
         page.getPass().clear();
     }
 
+    @Then("user will not be able to click the sign up button")
+    public void userWillNotBeAbleToClickTheSignUpButton() {
+        page.getCreateButton().click();
+        assertThat(page.getCreateButton().isEnabled(), is(false));
+    }
 }
