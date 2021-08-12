@@ -2,10 +2,9 @@ package com.sadoon.cbotbdd.glue;
 
 import com.sadoon.cbotbdd.glue.util.TestListener;
 import com.sadoon.cbotbdd.pages.UserStartPage;
-import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -16,7 +15,6 @@ public class UserLoginGlue {
 
     private WebDriver driver;
     private UserStartPage page;
-    private String name;
 
     public UserLoginGlue(TestListener listener) {
         this.driver = listener.getDriver();
@@ -30,19 +28,20 @@ public class UserLoginGlue {
         assertThat(page.getHeading().getText(), is("User Start"));
     }
 
-    @When("user submits these login values")
-    public void userSubmitsTheseLoginValues(DataTable table) {
-        name = table.cell(1, 0);
-        page.getName().sendKeys(name);
-        page.getPass().sendKeys(table.cell(1, 1));
-
+    @And("clicks login")
+    public void andClicksLogin(){
+        page.getName().sendKeys(page.getName().getText());
+        page.getPass().sendKeys(page.getPass().getText());
         page.getLoginButton().click();
-        page.getName().clear();
-        page.getPass().clear();
     }
 
     @Then("user will be redirected to user home page")
     public void userWillBeRedirectedToUserHomePage() {
         assertThat(page.getHomePageHeading().getText(), is("User Home"));
+    }
+
+    @Then("user will see failed login message")
+    public void userWillSeeFailedLoginMessage() {
+    assertThat(page.getSubmitOutcome().getText(), is("Error: user could not be logged in."));
     }
 }

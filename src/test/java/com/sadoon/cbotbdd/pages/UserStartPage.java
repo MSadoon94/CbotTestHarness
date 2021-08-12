@@ -20,15 +20,17 @@ public class UserStartPage {
     @FindBy(id = "pass")
     private WebElement pass;
 
+    @FindBy(id = "confirmPass")
+    private WebElement confirmPass;
+
     @FindBy(id = "createButton")
     private WebElement createButton;
 
     @FindBy(id = "loginButton")
     private WebElement loginButton;
 
-    @FindBy(className = "outcome")
+    @FindBy(id = "requestOutcome")
     private WebElement submitOutcome;
-
 
     public UserStartPage(WebDriver driver) {
         this.driver = driver;
@@ -54,8 +56,12 @@ public class UserStartPage {
         return pass;
     }
 
+    public WebElement getConfirmPass() {
+        return confirmPass;
+    }
+
     public WebElement getCreateButton() {
-        return createButton;
+        return createButton ;
     }
 
     public WebElement getLoginButton() {
@@ -67,7 +73,7 @@ public class UserStartPage {
 
         //Wait until outcome is not blank.
         waitForSubmit.until(ExpectedConditions.not(
-                ExpectedConditions.textToBe(By.className("outcome"), "")));
+                ExpectedConditions.textToBe(By.id("requestOutcome"), "")));
 
         return submitOutcome;
     }

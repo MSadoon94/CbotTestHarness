@@ -10,6 +10,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.logging.LogType;
 
 public class TestListener {
 
@@ -36,6 +37,7 @@ public class TestListener {
         if (scenario.isFailed()) {
             final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", scenario.getName());
+            scenario.log(driver.manage().logs().get(LogType.BROWSER).toJson().toString());
         }
         repo.deleteAllUsers();
         driver.close();
