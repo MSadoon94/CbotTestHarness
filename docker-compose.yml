@@ -1,0 +1,25 @@
+services:
+  backend:
+    image: sadoonsoftware/cbot:backend
+    container_name: "backend"
+    ports:
+      - "8080:8080"
+    restart: always
+    user: "1500"
+    environment:
+      SPRING_DATA_MONGODB_URI: "${SPRING_DATA_MONGODB_URI}"
+      APP_JWTSECRET: "${APP_JWTSECRET}"
+      APP_JWTEXPIRATIONMS: "${APP_JWTEXPIRATIONMS}"
+      APP_KRAKENAPIKEY: "${APP_KRAKENAPIKEY}"
+      APP_KRAKENSECRETKEY: "${APP_KRAKENSECRETKEY}"
+      APP_CORSEXCLUSION: "${APP_CORSEXCLUSION}"
+
+  frontend:
+    image: sadoonsoftware/cbot:frontend
+    container_name: "frontend"
+    restart: always
+    user: "1500"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
