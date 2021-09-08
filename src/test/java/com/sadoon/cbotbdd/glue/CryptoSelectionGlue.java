@@ -41,6 +41,11 @@ public class CryptoSelectionGlue {
 
     @Then("user will see checkmark next to entry")
     public void userWillSeeCheckmarkNextToEntry() {
-        assertThat(modalPage.getCurrencyPairOutcome(), is("✔"));
+        assertThat(modalPage.getValidity().getText(), is("✔"));
+    }
+
+    @Then("user will see error message next to entry")
+    public void userWillSeeErrorMessageNextToEntry() {
+        assertThat(modalPage.getValidity().getText(), is("BTC:US is invalid."));
     }
 }
