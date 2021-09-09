@@ -27,6 +27,11 @@ public class UserHomePage {
     @FindBy(id = "logoutButton")
     private WebElement logout;
 
+    @FindBy(id = "newStrategyButton")
+    private WebElement newStrategyButton;
+
+    @FindBy(id = "strategyModal")
+    private WebElement strategyModal;
 
     public UserHomePage(WebDriver driver) {
         this.driver = driver;
@@ -56,5 +61,15 @@ public class UserHomePage {
 
     public WebElement getLogout() {
         return logout;
+    }
+
+    public WebElement getNewStrategyButton() {
+        return newStrategyButton;
+    }
+
+    public WebElement getStrategyModal() {
+        WebDriverWait waitForModal = new WebDriverWait(driver, 5);
+        waitForModal.until(ExpectedConditions.visibilityOf(strategyModal));
+        return strategyModal;
     }
 }
