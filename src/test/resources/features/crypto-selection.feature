@@ -2,7 +2,7 @@
 Feature: crypto-selection
 
   Background: A user has successfully registered/logged into their account
-  and the strategy creation pop-up is open on the home page
+  and is at the home page
 
   Scenario: User enters valid cryptocurrency pair and is allowed to set it for the strategy
     Given strategy modal is open

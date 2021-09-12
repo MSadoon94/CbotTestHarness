@@ -1,15 +1,7 @@
+@login
 Feature: user login
 
-  Background: A user has successfully registered their account and is at their home page
-
-    Given user has navigated to signup page
-    When user enters these values
-      | user name | password       |
-      | TestUser  | TestPassword1- |
-    And enters this value for password confirmation
-      | password2      |
-      | TestPassword1- |
-    And clicks signup
+  Background: A user has successfully registered their account and is on the start page
 
   Scenario: A user enters correct credentials and is successfully redirected to user home page
 

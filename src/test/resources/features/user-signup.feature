@@ -1,3 +1,4 @@
+@sign-up
 Feature: user signup
 
   Scenario: A user successfully signs up after entering acceptable username/password and matching password entries
