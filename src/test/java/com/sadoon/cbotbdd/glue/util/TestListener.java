@@ -31,24 +31,40 @@ public class TestListener {
         return driver;
     }
 
-    @Before("not @crypto-selection")
+    @Before("@sign-up")
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
-    @Before("@crypto-selection")
+    @Before("@login")
+    public void setUpForLogin(){
+        UserStartPage page = getStartPage();
+
+        signUp(page);
+    }
+    @Before("not (@sign-up or @login)")
     public void setUpWithUserEntry(){
+        UserStartPage page = getStartPage();
+
+        signUp(page);
+        page.getLoginButton().click();
+
+        assertThat(page.getHomePageHeading().getText(), is("User Home"));
+    }
+
+    private UserStartPage getStartPage(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("http://localhost:3000/start");
-        UserStartPage page = PageFactory.initElements(driver, UserStartPage.class);
+        return PageFactory.initElements(driver, UserStartPage.class);
+    }
+
+    private void signUp(UserStartPage page){
         page.getName().sendKeys("TestUser");
         page.getPass().sendKeys("TestPassword1-");
         page.getConfirmPass().sendKeys("TestPassword1-");
         page.getCreateButton().click();
         assertThat(page.getSubmitOutcome().getText(), is("TestUser was created successfully."));
-        page.getLoginButton().click();
-        assertThat(page.getHomePageHeading().getText(), is("User Home"));
     }
 
     @After

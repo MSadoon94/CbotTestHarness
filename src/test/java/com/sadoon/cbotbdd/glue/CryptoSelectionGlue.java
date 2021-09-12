@@ -46,6 +46,6 @@ public class CryptoSelectionGlue {
 
     @Then("user will see error message next to entry")
     public void userWillSeeErrorMessageNextToEntry() {
-        assertThat(modalPage.getValidity().getText(), is("BTC:US is invalid."));
+        assertThat(modalPage.getValidity().getText(), is("BTCUS is invalid."));
     }
 }
