@@ -18,7 +18,6 @@ public class UserSignupGlue {
 
     private WebDriver driver;
     private UserStartPage page;
-    private String name;
 
     public UserSignupGlue(TestListener listener) {
         this.driver = listener.getDriver();
@@ -34,9 +33,8 @@ public class UserSignupGlue {
     @When("user enters these values")
     public void userEntersTheseValues(DataTable table){
         clearValues();
-        name = table.cell(1, 0);
 
-        page.getName().sendKeys(name);
+        page.getName().sendKeys(table.cell(1, 0));
         page.getPass().sendKeys(table.cell(1, 1));
 
     }
@@ -54,7 +52,7 @@ public class UserSignupGlue {
 
     @Then("user will be created with same values")
     public void userWillBeCreatedWithSameValues() {
-        assertThat(page.getSubmitOutcome().getText(), is(name + " was created successfully."));
+        assertThat(page.getSubmitOutcome().getText(), is("User was created successfully."));
     }
 
     private void clearValues(){

@@ -30,10 +30,11 @@ public class AddBrokerageGlue {
         page.getBrokerageSelect().selectByVisibleText("Kraken");
     }
 
-    @When("user submits this brokerage information")
-    public void userSubmitsThisBrokerageInformation(DataTable table) {
-        apiKey = table.cell(1, 0);
-        privateKey = table.cell(1, 1);
+    @When("user submits brokerage information")
+    public void userSubmitsBrokerageInformation() {
+        apiKey = System.getenv("KRAKEN_API_KEY");
+        privateKey = System.getenv("KRAKEN_PRIVATE_KEY");
+
 
         page.getApiKeyInput().sendKeys(apiKey);
         page.getPrivateKeyInput().sendKeys(privateKey);

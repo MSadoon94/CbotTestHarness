@@ -1,6 +1,5 @@
 package com.sadoon.cbotbdd.pages;
 
-import com.sadoon.cbotbdd.glue.util.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,13 +16,13 @@ public class StrategyModalPage {
     @FindBy(id = "quoteInput")
     private WebElement quoteInput;
 
-    @FindBy(id = "validity")
-    private WebElement validity;
+    @FindBy(id = "selectCrypto")
+    private WebElement cryptoValidity;
 
     @FindBy(id = "saveButton")
     private WebElement saveButton;
 
-    @FindBy(id = "saveOutcome")
+    @FindBy(id = "saveModal")
     private WebElement saveOutcome;
 
     public StrategyModalPage(WebDriver driver) {
@@ -38,14 +37,14 @@ public class StrategyModalPage {
         return quoteInput;
     }
 
-    public WebElement getValidity() {
+    public WebElement getCryptoValidity() {
         WebDriverWait waitForResults = new WebDriverWait(driver, 5);
 
         //Wait until outcome is not blank.
         waitForResults.until(ExpectedConditions.not(
-                ExpectedConditions.textToBe(By.id("validity"), "")));
+                ExpectedConditions.textToBe(By.id(cryptoValidity.getAttribute("id")), "")));
 
-        return validity;
+        return cryptoValidity;
     }
 
     public WebElement getSaveButton() {
@@ -57,7 +56,7 @@ public class StrategyModalPage {
 
         //Wait until outcome is not blank.
         waitForResults.until(ExpectedConditions.not(
-                ExpectedConditions.textToBe(By.id("saveOutcome"), "")));
+                ExpectedConditions.textToBe(By.id(saveOutcome.getAttribute("id")), "")));
 
         return saveOutcome;
     }

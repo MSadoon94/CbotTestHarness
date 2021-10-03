@@ -21,7 +21,7 @@ public class UserHomePage {
     @FindBy(id = "addBrokerage")
     private WebElement addBrokerageButton;
 
-    @FindBy(id = "balance")
+    @FindBy( id = "balanceLabel")
     private WebElement balance;
 
     @FindBy(id = "logoutButton")

@@ -41,11 +41,11 @@ public class CryptoSelectionGlue {
 
     @Then("user will see checkmark next to entry")
     public void userWillSeeCheckmarkNextToEntry() {
-        assertThat(modalPage.getValidity().getText(), is("✔"));
+        assertThat(modalPage.getCryptoValidity().getText(), is("✔"));
     }
 
     @Then("user will see error message next to entry")
     public void userWillSeeErrorMessageNextToEntry() {
-        assertThat(modalPage.getValidity().getText(), is("BTCUS is invalid."));
+        assertThat(modalPage.getCryptoValidity().getText(), is("BTCUS is invalid."));
     }
 }
