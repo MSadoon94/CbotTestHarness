@@ -64,7 +64,7 @@ public class TestListener {
         page.getPass().sendKeys("TestPassword1-");
         page.getConfirmPass().sendKeys("TestPassword1-");
         page.getCreateButton().click();
-        assertThat(page.getSubmitOutcome().getText(), is("TestUser was created successfully."));
+        assertThat(page.getSubmitOutcome().getText(), is("User was created successfully."));
     }
 
     @After
@@ -75,6 +75,7 @@ public class TestListener {
             scenario.log(driver.manage().logs().get(LogType.BROWSER).toJson().toString());
         }
         repo.deleteAllUsers();
+        repo.deleteAllCards();
         driver.close();
     }
 

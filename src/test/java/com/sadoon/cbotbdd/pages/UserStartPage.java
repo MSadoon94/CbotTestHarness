@@ -29,7 +29,7 @@ public class UserStartPage {
     @FindBy(id = "loginButton")
     private WebElement loginButton;
 
-    @FindBy(id = "requestOutcome")
+    @FindBy(id = "startResponse")
     private WebElement submitOutcome;
 
     public UserStartPage(WebDriver driver) {
@@ -73,7 +73,7 @@ public class UserStartPage {
 
         //Wait until outcome is not blank.
         waitForSubmit.until(ExpectedConditions.not(
-                ExpectedConditions.textToBe(By.id("requestOutcome"), "")));
+                ExpectedConditions.textToBe(By.id("startResponse"), "")));
 
         return submitOutcome;
     }
