@@ -1,28 +1,27 @@
 package com.sadoon.cbotbdd.pages;
 
-import org.openqa.selenium.By;
+import com.sadoon.cbotbdd.glue.util.Waiter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class UserHomePage {
 
     private final WebDriver driver;
 
-    @FindBy(id = "apiKey")
-    private WebElement apiKeyInput;
+    @FindBy(id = "cardNameInput")
+    private WebElement cardNameInput;
 
-    @FindBy(id = "privateKey")
-    private WebElement privateKeyInput;
+    @FindBy(id = "cardAccountInput")
+    private WebElement cardAccountInput;
 
-    @FindBy(id = "addBrokerage")
-    private WebElement addBrokerageButton;
+    @FindBy(id = "cardPasswordInput")
+    private WebElement cardPasswordInput;
 
-    @FindBy( id = "balanceLabel")
-    private WebElement balance;
+    @FindBy(id = "cardBrokerageInput")
+    private WebElement cardBrokerageInput;
 
     @FindBy(id = "logoutButton")
     private WebElement logout;
@@ -33,30 +32,29 @@ public class UserHomePage {
     @FindBy(id = "strategyModal")
     private WebElement strategyModal;
 
+    @FindBy(id = "newCardButton")
+    private WebElement newCardButton;
+
+    @FindBy(id = "saveCardButton")
+    private WebElement saveCardButton;
+
+    @FindBy(id = "saveCardResponse")
+    private WebElement saveCardResponse;
+
     public UserHomePage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public Select getBrokerageSelect() {
-        return new Select(driver.findElement(By.name("brokerageSelect")));
+    public WebElement getCardAccountInput() {
+        return cardAccountInput;
     }
 
-    public WebElement getApiKeyInput() {
-        return apiKeyInput;
+    public WebElement getCardPasswordInput() {
+        return cardPasswordInput;
     }
 
-    public WebElement getPrivateKeyInput() {
-        return privateKeyInput;
-    }
-
-    public WebElement getAddBrokerageButton() {
-        return addBrokerageButton;
-    }
-
-    public WebElement getBalance() {
-        WebDriverWait waitForCard = new WebDriverWait(driver, 5);
-        waitForCard.until(ExpectedConditions.visibilityOf(balance));
-        return balance;
+    public WebElement getCardBrokerageInput() {
+        return cardBrokerageInput;
     }
 
     public WebElement getLogout() {
@@ -71,5 +69,23 @@ public class UserHomePage {
         WebDriverWait waitForModal = new WebDriverWait(driver, 5);
         waitForModal.until(ExpectedConditions.visibilityOf(strategyModal));
         return strategyModal;
+    }
+
+    public WebElement getCardNameInput() {
+
+        return Waiter.waitUntilElementVisible(driver, cardNameInput);
+    }
+
+    public WebElement getNewCardButton() {
+        return newCardButton;
+    }
+
+    public WebElement getSaveCardButton() {
+        return saveCardButton;
+    }
+
+    public WebElement getSaveCardResponse() {
+        Waiter.waitUntilOutcomeNotBlank(driver, saveCardResponse);
+        return saveCardResponse;
     }
 }

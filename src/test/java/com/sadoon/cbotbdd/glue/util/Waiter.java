@@ -2,16 +2,22 @@ package com.sadoon.cbotbdd.glue.util;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class Waiter {
 
-    public static Boolean isOutcomeNotBlank(WebDriver driver, String id){
-        WebDriverWait waitForResults = new WebDriverWait(driver, 5);
+    public static Boolean waitUntilOutcomeNotBlank(WebDriver driver, WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, 5);
 
-        //Wait until outcome is not blank.
-      return waitForResults.until(ExpectedConditions.not(
-                ExpectedConditions.textToBe(By.id(id), "")));
+      return wait.until(not(
+                textToBe(By.id(element.getAttribute("id")), "")));
+    }
+
+    public static WebElement waitUntilElementVisible(WebDriver driver, WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+
+        return wait.until(visibilityOf(element));
     }
 }
