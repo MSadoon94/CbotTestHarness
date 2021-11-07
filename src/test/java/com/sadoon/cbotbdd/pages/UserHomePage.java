@@ -1,11 +1,11 @@
 package com.sadoon.cbotbdd.pages;
 
 import com.sadoon.cbotbdd.glue.util.Waiter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
 
 public class UserHomePage {
 
@@ -41,8 +41,24 @@ public class UserHomePage {
     @FindBy(id = "saveCardResponse")
     private WebElement saveCardResponse;
 
+    @FindBy(id = "cardPassword")
+    private WebElement cardPasswordVerify;
+
+    @FindBy(id = "cardPasswordButton")
+    private WebElement cardPasswordButton;
+
+    @FindBy(id = "cardPasswordCheck")
+    private WebElement cardPasswordResponse;
+
+    @FindBy(id = "MockCard")
+    private WebElement loadedCard;
+
     public UserHomePage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public Select getCardSelect(){
+        return new Select(driver.findElement(By.id("cardSelect")));
     }
 
     public WebElement getCardAccountInput() {
@@ -66,13 +82,10 @@ public class UserHomePage {
     }
 
     public WebElement getStrategyModal() {
-        WebDriverWait waitForModal = new WebDriverWait(driver, 5);
-        waitForModal.until(ExpectedConditions.visibilityOf(strategyModal));
-        return strategyModal;
+        return Waiter.waitUntilElementVisible(driver, strategyModal);
     }
 
     public WebElement getCardNameInput() {
-
         return Waiter.waitUntilElementVisible(driver, cardNameInput);
     }
 
@@ -87,5 +100,23 @@ public class UserHomePage {
     public WebElement getSaveCardResponse() {
         Waiter.waitUntilOutcomeNotBlank(driver, saveCardResponse);
         return saveCardResponse;
+    }
+
+    public WebElement getCardPasswordVerify() {
+        return Waiter.waitUntilElementVisible(driver, cardPasswordVerify);
+    }
+
+    public WebElement getCardPasswordButton() {
+
+        return Waiter.waitUntilElementVisible(driver, cardPasswordButton);
+    }
+
+    public WebElement getCardPasswordResponse() {
+        Waiter.waitUntilOutcomeNotBlank(driver, cardPasswordResponse);
+        return cardPasswordResponse;
+    }
+
+    public WebElement getLoadedCard() {
+        return Waiter.waitUntilElementVisible(driver, loadedCard);
     }
 }
