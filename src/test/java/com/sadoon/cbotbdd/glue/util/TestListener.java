@@ -2,6 +2,7 @@ package com.sadoon.cbotbdd.glue.util;
 
 import com.sadoon.cbotbdd.database.MongoRepo;
 import com.sadoon.cbotbdd.database.Repository;
+import com.sadoon.cbotbdd.pages.UserHomePage;
 import com.sadoon.cbotbdd.pages.UserStartPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -36,13 +37,14 @@ public class TestListener {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
+
     @Before("@login")
     public void setUpForLogin(){
         UserStartPage page = getStartPage();
 
         signUp(page);
     }
-    @Before("not (@sign-up or @login)")
+    @Before("not (@sign-up or @login or @load-card)")
     public void setUpWithUserEntry(){
         UserStartPage page = getStartPage();
 
@@ -50,6 +52,12 @@ public class TestListener {
         page.getLoginButton().click();
 
         assertThat(page.getHomePageHeading().getText(), is("User Home"));
+    }
+
+    @Before("@load-card")
+    public void setUpWithCardSaved(){
+        setUpWithUserEntry();
+        saveCard(PageFactory.initElements(driver, UserHomePage.class));
     }
 
     private UserStartPage getStartPage(){
@@ -67,6 +75,19 @@ public class TestListener {
         assertThat(page.getSubmitOutcome().getText(), is("User was created successfully."));
     }
 
+    private void saveCard(UserHomePage page){
+        page.getNewCardButton().click();
+
+        page.getCardNameInput().sendKeys("MockCard");
+        page.getCardAccountInput().sendKeys(System.getenv("KRAKEN_API_KEY"));
+        page.getCardPasswordInput().sendKeys(System.getenv("KRAKEN_PRIVATE_KEY"));
+        page.getCardBrokerageInput().sendKeys("kraken");
+
+        page.getSaveCardButton().click();
+
+        assertThat(page.getSaveCardResponse().getText(), is("Card was saved successfully."));
+    }
+
     @After
     public void onTestFailure(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -75,7 +96,6 @@ public class TestListener {
             scenario.log(driver.manage().logs().get(LogType.BROWSER).toJson().toString());
         }
         repo.deleteAllUsers();
-        repo.deleteAllCards();
         driver.close();
     }
 
