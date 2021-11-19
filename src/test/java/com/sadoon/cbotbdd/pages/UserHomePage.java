@@ -11,6 +11,9 @@ public class UserHomePage {
 
     private final WebDriver driver;
 
+    @FindBy(className = "title")
+    private WebElement heading;
+
     @FindBy(id = "cardNameInput")
     private WebElement cardNameInput;
 
@@ -55,6 +58,10 @@ public class UserHomePage {
 
     public UserHomePage(WebDriver driver) {
         this.driver = driver;
+    }
+    
+    public WebElement getHeading() {
+        return heading;
     }
 
     public Select getCardSelect(){
