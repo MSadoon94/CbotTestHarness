@@ -12,8 +12,12 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.logging.Level;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -33,7 +37,7 @@ public class TestListener {
     }
 
     @Before("@sign-up")
-    public void setUp() {
+    public void setUpForSignUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
@@ -54,17 +58,26 @@ public class TestListener {
         assertThat(page.getHomePageHeading().getText(), is("User Home"));
     }
 
-    @Before("@load-card")
+    @Before("@load-card or silent-refresh")
     public void setUpWithCardSaved(){
         setUpWithUserEntry();
         saveCard(PageFactory.initElements(driver, UserHomePage.class));
     }
 
     private UserStartPage getStartPage(){
+
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(getOptionsForLogging());
         driver.get("http://localhost:3000/start");
         return PageFactory.initElements(driver, UserStartPage.class);
+    }
+
+    private ChromeOptions getOptionsForLogging(){
+        ChromeOptions options = new ChromeOptions();
+        LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.BROWSER, Level.ALL);
+        options.setCapability("goog:loggingPrefs", logPrefs);
+        return options;
     }
 
     private void signUp(UserStartPage page){

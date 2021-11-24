@@ -7,3 +7,11 @@ Feature: refresh
 
     When user refreshes page
     Then user will stay logged in and on the same page
+
+
+  @silent-refresh
+  Scenario: A user successfully silently refreshes a page
+
+    Given user clicks on load card combo box
+    When session silently refreshes
+    Then user will stay logged in and on the same page
