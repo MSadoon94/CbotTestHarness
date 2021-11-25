@@ -5,10 +5,12 @@ import com.sadoon.cbotbdd.pages.UserHomePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -50,6 +52,20 @@ public class RefreshGlue {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         assertThat(wait.until(browserLog).getMessage(), containsString("\"Session refreshed.\""));
+    }
+
+    @When("a session end alert will be shown")
+    public void aSessionEndAlertWillBeShown() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        page.getCardSelect().getWrappedElement().click();
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        assertThat(alert.getText(), is("Session expired, logging out."));
+        alert.accept();
+    }
+
+    @Then("user will be sent to start page")
+    public void userWillBeSentToStartPage() {
+       assertThat(page.getHeading().getText(), is("User Start"));
     }
 
     private Function<WebDriver, LogEntry> browserLog = new Function<>() {
