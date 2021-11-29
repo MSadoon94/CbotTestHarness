@@ -45,3 +45,16 @@ Feature: user signup
       | password2      |
       | TestPassword1 |
     Then user will not be able to click the sign up button
+
+  Scenario: A user cannot sign up because the username is already taken
+
+    Given a user with the username test user already exists
+    And user has navigated to signup page
+    When user enters these values
+      | user name | password      |
+      | TestUser  | TestPassword1- |
+    And enters this value for password confirmation
+      | password2      |
+      | TestPassword1- |
+    And clicks signup
+    Then user will see sign up failed message

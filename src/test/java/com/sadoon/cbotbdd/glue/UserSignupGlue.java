@@ -18,8 +18,10 @@ public class UserSignupGlue {
 
     private WebDriver driver;
     private UserStartPage page;
+    private TestListener listener;
 
     public UserSignupGlue(TestListener listener) {
+        this.listener = listener;
         this.driver = listener.getDriver();
         page = PageFactory.initElements(driver, UserStartPage.class);
     }
@@ -64,5 +66,17 @@ public class UserSignupGlue {
     public void userWillNotBeAbleToClickTheSignUpButton() {
         page.getCreateButton().click();
         assertThat(page.getCreateButton().isEnabled(), is(false));
+    }
+
+    @Given("a user with the username test user already exists")
+    public void aUserWithTheUsernameTestUserAlreadyExists() {
+        userHasNavigatedToSignupPage();
+
+        listener.signUp(page);
+    }
+
+    @Then("user will see sign up failed message")
+    public void userWillSeeSignUpFailedMessage() {
+        assertThat(page.getSubmitOutcome().getText(), is("A user already exists with the username 'TestUser', please choose another username."));
     }
 }

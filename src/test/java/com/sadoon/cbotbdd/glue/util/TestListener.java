@@ -64,6 +64,16 @@ public class TestListener {
         saveCard(PageFactory.initElements(driver, UserHomePage.class));
     }
 
+    public void signUp(UserStartPage page){
+        page.getName().sendKeys("TestUser");
+        page.getPass().sendKeys("TestPassword1-");
+
+        page.getConfirmPass().sendKeys("TestPassword1-");
+        page.getCreateButton().click();
+
+        assertThat(page.getSubmitOutcome().getText(), is("User was created successfully."));
+    }
+
     private UserStartPage getStartPage(){
 
         WebDriverManager.chromedriver().setup();
@@ -78,14 +88,6 @@ public class TestListener {
         logPrefs.enable(LogType.BROWSER, Level.ALL);
         options.setCapability("goog:loggingPrefs", logPrefs);
         return options;
-    }
-
-    private void signUp(UserStartPage page){
-        page.getName().sendKeys("TestUser");
-        page.getPass().sendKeys("TestPassword1-");
-        page.getConfirmPass().sendKeys("TestPassword1-");
-        page.getCreateButton().click();
-        assertThat(page.getSubmitOutcome().getText(), is("User was created successfully."));
     }
 
     private void saveCard(UserHomePage page){
