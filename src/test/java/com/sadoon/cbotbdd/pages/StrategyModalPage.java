@@ -1,11 +1,11 @@
 package com.sadoon.cbotbdd.pages;
 
+import com.sadoon.cbotbdd.glue.util.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
 
 public class StrategyModalPage {
     private final WebDriver driver;
@@ -25,6 +25,9 @@ public class StrategyModalPage {
     @FindBy(id = "saveModal")
     private WebElement saveOutcome;
 
+    @FindBy(id = "strategyName")
+    private WebElement strategyNameInput;
+
     public StrategyModalPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -38,12 +41,7 @@ public class StrategyModalPage {
     }
 
     public WebElement getCryptoValidity() {
-        WebDriverWait waitForResults = new WebDriverWait(driver, 5);
-
-        //Wait until outcome is not blank.
-        waitForResults.until(ExpectedConditions.not(
-                ExpectedConditions.textToBe(By.id(cryptoValidity.getAttribute("id")), "")));
-
+        Waiter.waitUntilOutcomeNotBlank(driver, cryptoValidity);
         return cryptoValidity;
     }
 
@@ -52,12 +50,15 @@ public class StrategyModalPage {
     }
 
     public WebElement getSaveOutcome() {
-        WebDriverWait waitForResults = new WebDriverWait(driver, 5);
-
-        //Wait until outcome is not blank.
-        waitForResults.until(ExpectedConditions.not(
-                ExpectedConditions.textToBe(By.id(saveOutcome.getAttribute("id")), "")));
-
+        Waiter.waitUntilOutcomeNotBlank(driver, saveOutcome);
         return saveOutcome;
+    }
+
+    public Select getStrategySelect(){
+        return new Select(driver.findElement(By.id("loadStrategiesSelect")));
+    }
+
+    public WebElement getStrategyNameInput() {
+        return strategyNameInput;
     }
 }
