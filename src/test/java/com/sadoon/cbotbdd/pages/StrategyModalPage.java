@@ -28,6 +28,9 @@ public class StrategyModalPage {
     @FindBy(id = "strategyName")
     private WebElement strategyNameInput;
 
+    @FindBy(id = "stopLossInput")
+    private WebElement stopLossInput;
+
     public StrategyModalPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -60,5 +63,9 @@ public class StrategyModalPage {
 
     public WebElement getStrategyNameInput() {
         return strategyNameInput;
+    }
+
+    public WebElement getStopLossInput() {
+        return stopLossInput;
     }
 }
