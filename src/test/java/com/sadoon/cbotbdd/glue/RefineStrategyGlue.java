@@ -1,6 +1,10 @@
 package com.sadoon.cbotbdd.glue;
 
+import com.sadoon.cbotbdd.glue.util.TestListener;
+import com.sadoon.cbotbdd.glue.util.Waiter;
 import com.sadoon.cbotbdd.pages.StrategyModalPage;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
@@ -17,22 +21,45 @@ public class RefineStrategyGlue {
     private WebDriver driver;
     private StrategyModalPage page;
     private Map<String, WebElement> validation;
+    private Map<String, String> refinements;
 
-    public RefineStrategyGlue(WebDriver driver) {
-        this.driver = driver;
+    public RefineStrategyGlue(TestListener listener) {
+        this.driver = listener.getDriver();
         this.page = PageFactory.initElements(driver, StrategyModalPage.class);
         this.validation = Map.of(
                 "stop-loss", page.getStopLossInput()
         );
     }
 
-    @When("user enters {string} in stop loss entry box")
-    public void userEntersInStopLossEntryBox(String arg0) {
-        page.getStopLossInput().sendKeys(arg0);
+    @When("user clicks on refine strategy widget")
+    public void userClicksOnRefineStrategyWidget() {
+        page.getRefineDetails().click();
     }
 
-    @Then("user will see {string} next to {string} entry box")
-    public void userWillSeeNextToEntryBox(String arg0, String arg1) {
-        assertThat(validation.get(arg1).getText(), is(arg0));
+    @And("saves all these refinements to the strategy")
+    public void savesAllTheseRefinementsToTheStrategy(DataTable table) {
+        refinements = table.asMap();
+
+        refinements.forEach((key, value) -> validation.get(key).sendKeys(value));
+
+        page.getStrategyNameInput().sendKeys("MockStrategy");
+
+        page.getSaveButton().click();
+        assertThat(page.getSaveOutcome().getText(), is("Strategy was saved successfully."));
+    }
+
+    @Then("user will see all saved refinements on load")
+    public void userWillSeeAllSavedRefinementsOnLoad() {
+        refinements.forEach((key, value) -> validation.get(key).clear());
+
+        loadStrategy();
+
+        refinements.forEach((key, value) -> assertThat(validation.get(key).getAttribute("value"), is(value)));
+    }
+
+    private void loadStrategy() {
+        page.getStrategySelect().getWrappedElement().click();
+        Waiter.waitUntilSelectHasOption(driver, page.getStrategySelect(), "MockStrategy");
+        page.getStrategySelect().selectByValue("MockStrategy");
     }
 }

@@ -28,6 +28,9 @@ public class StrategyModalPage {
     @FindBy(id = "strategyName")
     private WebElement strategyNameInput;
 
+    @FindBy(id = "refineDetails")
+    private WebElement refineDetails;
+
     @FindBy(id = "stopLossInput")
     private WebElement stopLossInput;
 
@@ -67,5 +70,9 @@ public class StrategyModalPage {
 
     public WebElement getStopLossInput() {
         return stopLossInput;
+    }
+
+    public WebElement getRefineDetails() {
+        return refineDetails;
     }
 }
