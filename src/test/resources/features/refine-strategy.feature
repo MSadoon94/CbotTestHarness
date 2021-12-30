@@ -7,5 +7,10 @@ Feature: refine strategy
     Given strategy modal is open
     When user clicks on refine strategy widget
     And saves all these refinements to the strategy
-      | stop-loss | 100   |
+      | stop-loss        | 100  |
+      | max-position     | 200  |
+      | target-profit    | 5    |
+      | moving-stop-loss | 10   |
+      | max-loss         | 1000 |
+      | long-entry       | 10   |
     Then user will see all saved refinements on load

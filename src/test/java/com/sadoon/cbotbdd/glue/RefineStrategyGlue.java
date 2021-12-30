@@ -27,7 +27,12 @@ public class RefineStrategyGlue {
         this.driver = listener.getDriver();
         this.page = PageFactory.initElements(driver, StrategyModalPage.class);
         this.validation = Map.of(
-                "stop-loss", page.getStopLossInput()
+                "stop-loss", page.getStopLossInput(),
+                "max-position", page.getMaxPositionInput(),
+                "target-profit", page.getTargetProfitInput(),
+                "moving-stop-loss", page.getMovingStopLossInput(),
+                "max-loss", page.getMaxLossInput(),
+                "long-entry", page.getLongEntryInput()
         );
     }
 

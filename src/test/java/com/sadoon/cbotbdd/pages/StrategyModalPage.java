@@ -34,6 +34,21 @@ public class StrategyModalPage {
     @FindBy(id = "stopLossInput")
     private WebElement stopLossInput;
 
+    @FindBy(id = "maxPositionInput")
+    private WebElement maxPositionInput;
+
+    @FindBy(id = "targetProfitInput")
+    private WebElement targetProfitInput;
+
+    @FindBy(id = "movingStopLossInput")
+    private WebElement movingStopLossInput;
+
+    @FindBy(id = "maxLossInput")
+    private WebElement maxLossInput;
+
+    @FindBy(id = "longEntryInput")
+    private WebElement longEntryInput;
+
     public StrategyModalPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -74,5 +89,25 @@ public class StrategyModalPage {
 
     public WebElement getRefineDetails() {
         return refineDetails;
+    }
+
+    public WebElement getMaxPositionInput() {
+        return maxPositionInput;
+    }
+
+    public WebElement getTargetProfitInput() {
+        return targetProfitInput;
+    }
+
+    public WebElement getMovingStopLossInput() {
+        return movingStopLossInput;
+    }
+
+    public WebElement getMaxLossInput() {
+        return maxLossInput;
+    }
+
+    public WebElement getLongEntryInput() {
+        return longEntryInput;
     }
 }
