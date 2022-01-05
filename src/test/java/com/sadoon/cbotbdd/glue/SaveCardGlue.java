@@ -2,6 +2,8 @@ package com.sadoon.cbotbdd.glue;
 
 import com.sadoon.cbotbdd.glue.util.TestListener;
 import com.sadoon.cbotbdd.pages.UserHomePage;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,7 +16,7 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class CardSaverGlue {
+public class SaveCardGlue {
 
     private WebDriver driver;
     private UserHomePage page;
@@ -22,7 +24,7 @@ public class CardSaverGlue {
     private String cardAccount;
     private String cardPassword;
 
-    public CardSaverGlue(TestListener listener) {
+    public SaveCardGlue(TestListener listener) {
         this.driver = listener.getDriver();
         page = PageFactory.initElements(driver, UserHomePage.class);
         cardAccount = System.getenv("KRAKEN_API_KEY");
@@ -34,13 +36,6 @@ public class CardSaverGlue {
         page.getNewCardButton().click();
     }
 
-    @When("user submits valid card information")
-    public void userSubmitsValidCardInformation() {
-        sendValidInputs();
-
-        page.getSaveCardButton().click();
-    }
-
     @Then("user will see card save success message")
     public void userWillSeeCardSaveSuccessMessage() {
         assertThat(page.getSaveCardResponse().getText(), is("Card was saved successfully."));
@@ -49,9 +44,7 @@ public class CardSaverGlue {
     @When("^user submits this invalid card \"([^\"]*)\"$")
     public void userSubmitsThisInvalidCardInput(String input) {
         sendValidInputs();
-        WebElement invalidTargetInput = getTargetWebElement(input);
-        invalidTargetInput.clear();
-        getTargetWebElement(input).sendKeys("Invalid");
+
         page.getSaveCardButton().click();
     }
 
@@ -60,11 +53,12 @@ public class CardSaverGlue {
         assertThat(page.getSaveCardResponse().getText(), is("Error: Card could not be saved."));
     }
 
+
     private void sendValidInputs() {
         page.getCardNameInput().sendKeys("MockCard");
-        page.getCardAccountInput().sendKeys(cardAccount);
-        page.getCardPasswordInput().sendKeys(cardPassword);
-        page.getCardBrokerageInput().sendKeys("kraken");
+        page.getCardAccountInput().sendKeys("MockAccount");
+        page.getCardPasswordInput().sendKeys("MockPassword");
+        page.getCardBrokerageInput().sendKeys("MockKraken");
     }
 
     private WebElement getTargetWebElement(String invalidInput) {
@@ -75,4 +69,23 @@ public class CardSaverGlue {
                 .get(invalidInput);
     }
 
+    @When("user enters these card values")
+    public void whenUserEntersTheseCardValues(DataTable table){
+        page.getCardNameInput().sendKeys(table.cell(0, 0));
+        page.getCardAccountInput().sendKeys(table.cell(0,1));
+        page.getCardPasswordInput().sendKeys(table.cell(0, 2));
+        page.getCardBrokerageInput().sendKeys(table.cell(0, 3));
+    }
+
+    @And("clicks save card button")
+    public void andClicksSaveCardButton(){
+        page.getSaveCardButton().click();
+    }
+
+    @And("user enters this invalid {string} value")
+    public void userEntersThisInvalidValue(String arg0) {
+        WebElement invalidTargetInput = getTargetWebElement(arg0);
+        invalidTargetInput.clear();
+        getTargetWebElement(arg0).sendKeys("Invalid");
+    }
 }

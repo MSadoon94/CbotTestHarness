@@ -1,7 +1,7 @@
 package com.sadoon.cbotbdd.glue.util;
 
 import com.sadoon.cbotbdd.database.MongoRepo;
-import com.sadoon.cbotbdd.database.Repository;
+import com.sadoon.cbotbdd.glue.util.mockbrokerage.MockBrokerageFactory;
 import com.sadoon.cbotbdd.pages.UserHomePage;
 import com.sadoon.cbotbdd.pages.UserStartPage;
 import io.cucumber.java.After;
@@ -23,13 +23,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class TestListener {
-
-    private Repository repo;
-
+    private final MongoRepo repo;
     private WebDriver driver;
 
     public TestListener() {
         this.repo = new MongoRepo();
+        new MockBrokerageFactory(repo);
     }
 
     public WebDriver getDriver() {
@@ -43,13 +42,14 @@ public class TestListener {
     }
 
     @Before("@login")
-    public void setUpForLogin(){
+    public void setUpForLogin() {
         UserStartPage page = getStartPage();
 
         signUp(page);
     }
+
     @Before("not (@sign-up or @login or @load-card)")
-    public void setUpWithUserEntry(){
+    public void setUpWithUserEntry() {
         UserStartPage page = getStartPage();
 
         signUp(page);
@@ -58,13 +58,13 @@ public class TestListener {
         assertThat(page.getHomePageHeading().getText(), is("User Home"));
     }
 
-    @Before("@load-card or silent-refresh")
-    public void setUpWithCardSaved(){
+    @Before("@load-card or @silent-refresh")
+    public void setUpWithCardSaved() {
         setUpWithUserEntry();
         saveCard(PageFactory.initElements(driver, UserHomePage.class));
     }
 
-    public void signUp(UserStartPage page){
+    public void signUp(UserStartPage page) {
         page.getName().sendKeys("TestUser");
         page.getPass().sendKeys("TestPassword1-");
 
@@ -74,7 +74,7 @@ public class TestListener {
         assertThat(page.getSubmitOutcome().getText(), is("User was created successfully."));
     }
 
-    private UserStartPage getStartPage(){
+    private UserStartPage getStartPage() {
 
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(getOptionsForLogging());
@@ -82,7 +82,7 @@ public class TestListener {
         return PageFactory.initElements(driver, UserStartPage.class);
     }
 
-    private ChromeOptions getOptionsForLogging(){
+    private ChromeOptions getOptionsForLogging() {
         ChromeOptions options = new ChromeOptions();
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable(LogType.BROWSER, Level.ALL);
@@ -90,7 +90,7 @@ public class TestListener {
         return options;
     }
 
-    private void saveCard(UserHomePage page){
+    private void saveCard(UserHomePage page) {
         page.getNewCardButton().click();
 
         page.getCardNameInput().sendKeys("MockCard");
@@ -105,13 +105,17 @@ public class TestListener {
 
     @After
     public void onTestFailure(Scenario scenario) {
+        logFailScenario(scenario);
+        repo.deleteAllUsers();
+        driver.close();
+    }
+
+    private void logFailScenario(Scenario scenario) {
         if (scenario.isFailed()) {
             final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", scenario.getName());
             scenario.log(driver.manage().logs().get(LogType.BROWSER).toJson().toString());
         }
-        repo.deleteAllUsers();
-        driver.close();
     }
 
 }
