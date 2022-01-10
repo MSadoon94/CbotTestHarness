@@ -56,6 +56,15 @@ public class UserHomePage {
     @FindBy(id = "MockCard")
     private WebElement loadedCard;
 
+    @FindBy(id = "strategyActDetails")
+    private WebElement strategyActDetails;
+
+    @FindBy(id = "MockStrategyCheckbox")
+    private WebElement strategyCheckbox;
+
+    @FindBy(id = "cbotPowerButton")
+    private WebElement cbotPowerButton;
+
     public UserHomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -125,5 +134,17 @@ public class UserHomePage {
 
     public WebElement getLoadedCard() {
         return Waiter.waitUntilElementVisible(driver, loadedCard);
+    }
+
+    public WebElement getStrategyActDetails() {
+        return strategyActDetails;
+    }
+
+    public WebElement getStrategyCheckbox() {
+        return strategyCheckbox;
+    }
+
+    public WebElement getCbotPowerButton() {
+        return cbotPowerButton;
     }
 }

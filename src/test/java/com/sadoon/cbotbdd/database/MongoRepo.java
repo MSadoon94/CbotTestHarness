@@ -10,6 +10,8 @@ import com.sadoon.cbotbdd.glue.util.mockbrokerage.MockBrokerage;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import java.util.Map;
+
 public class MongoRepo {
     private MongoCollection<Document> users;
     private MongoCollection<Document> brokerages;
@@ -29,5 +31,11 @@ public class MongoRepo {
         Document mockBrokerageQuery = new Document().append("name", mockBrokerage.getBrokerageName());
         Bson updateUrl = Updates.set("url", mockBrokerage.getBrokerageUrl());
         return brokerages.updateOne(mockBrokerageQuery, updateUrl);
+    }
+
+    public UpdateResult setStrategies(String username, Map<String, Object> strategies){
+        Document userFilter= new Document().append("username", username);
+        Bson updateStrategies = Updates.set("strategies", strategies);
+       return users.updateOne(userFilter, updateStrategies);
     }
 }
