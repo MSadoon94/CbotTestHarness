@@ -27,6 +27,11 @@ public class MongoRepo {
         users.deleteMany(new Document());
     }
 
+    public UpdateResult updateUser(String username, String property, Object value){
+        Document userQuery = new Document().append("username", username);
+        Bson updateValue = Updates.set(property, value);
+        return users.updateOne(userQuery, updateValue);
+    }
     public UpdateResult setMockBrokerageUrl(MockBrokerage mockBrokerage){
         Document mockBrokerageQuery = new Document().append("name", mockBrokerage.getBrokerageName());
         Bson updateUrl = Updates.set("url", mockBrokerage.getBrokerageUrl());

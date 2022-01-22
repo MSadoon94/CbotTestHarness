@@ -38,6 +38,10 @@ public class TestListener {
         return driver;
     }
 
+    public MongoRepo getRepo() {
+        return repo;
+    }
+
     @Before("@sign-up")
     public void setUpForSignUp() {
         WebDriverManager.chromedriver().setup();
