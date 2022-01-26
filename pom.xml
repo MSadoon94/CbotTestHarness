@@ -16,7 +16,7 @@
         <junit.version>5.8.1</junit.version>
         <aspectj.version>1.9.6</aspectj.version>
         <allure.version>2.16.0</allure.version>
-        <cucumber.version>7.0.0</cucumber.version>
+        <cucumber.version>7.2.0</cucumber.version>
     </properties>
 
     <dependencies>
