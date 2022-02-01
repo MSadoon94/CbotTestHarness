@@ -50,14 +50,14 @@ public class UserHomePage {
     @FindBy(id = "cardPasswordButton")
     private WebElement cardPasswordButton;
 
-    @FindBy(id = "cardPasswordCheck")
+    @FindBy(id = "cardPassResponse")
     private WebElement cardPasswordResponse;
 
     @FindBy(id = "MockCard")
     private WebElement loadedCard;
 
-    @FindBy(id = "strategyActDetails")
-    private WebElement strategyActDetails;
+    @FindBy(id = "strategyDetails")
+    private WebElement strategyDetails;
 
     @FindBy(id = "MockStrategyCheckbox")
     private WebElement strategyCheckbox;
@@ -74,7 +74,7 @@ public class UserHomePage {
     }
 
     public Select getCardSelect(){
-        return new Select(driver.findElement(By.id("cardSelect")));
+        return new Select(driver.findElement(By.id("loadCardsSelect")));
     }
 
     public WebElement getCardAccountInput() {
@@ -136,8 +136,8 @@ public class UserHomePage {
         return Waiter.waitUntilElementVisible(driver, loadedCard);
     }
 
-    public WebElement getStrategyActDetails() {
-        return strategyActDetails;
+    public WebElement getStrategyDetails() {
+        return strategyDetails;
     }
 
     public WebElement getStrategyCheckbox() {

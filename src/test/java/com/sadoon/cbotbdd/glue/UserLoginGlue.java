@@ -42,6 +42,6 @@ public class UserLoginGlue {
 
     @Then("user will see failed login message")
     public void userWillSeeFailedLoginMessage() {
-    assertThat(page.getSubmitOutcome().getText(), is("Error: User could not be loaded."));
+    assertThat(page.getLoginResponse().getText(), is("Error: User could not be loaded."));
     }
 }

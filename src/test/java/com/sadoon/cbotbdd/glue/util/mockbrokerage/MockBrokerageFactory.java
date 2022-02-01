@@ -20,14 +20,14 @@ public class MockBrokerageFactory {
         this.repo = repo;
     }
 
-    @Before("@mock-kraken")
+    @Before(value = "@mock-kraken", order = 1)
     public void setUpMockKraken() {
         brokerageName = "mockkraken";
         setFileReader();
         responseHandler = new ResponseHandler(new MockKrakenResponses(fileReader));
     }
 
-    @Before("@fail-response")
+    @Before(value = "@fail-response", order = 2)
     public void setUpBrokerageFailState(){
         isFailResponse = true;
     }

@@ -49,12 +49,12 @@ public class UserSignupGlue {
     @And("clicks signup")
     public void clicksSignup(){
         page.getCreateButton().click();
-        assertThat(page.getSubmitOutcome().getText(), is(notNullValue()));
+        assertThat(page.getSignupResponse().getText(), is(notNullValue()));
     }
 
     @Then("user will be created with same values")
     public void userWillBeCreatedWithSameValues() {
-        assertThat(page.getSubmitOutcome().getText(), is("User was created successfully."));
+        assertThat(page.getSignupResponse().getText(), is("User was created successfully."));
     }
 
     private void clearValues(){
@@ -77,6 +77,6 @@ public class UserSignupGlue {
 
     @Then("user will see sign up failed message")
     public void userWillSeeSignUpFailedMessage() {
-        assertThat(page.getSubmitOutcome().getText(), is("A user already exists with the username 'TestUser', please choose another username."));
+        assertThat(page.getSignupResponse().getText(), is("A user already exists with the username 'TestUser', please choose another username."));
     }
 }

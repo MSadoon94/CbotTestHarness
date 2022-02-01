@@ -16,13 +16,13 @@ public class StrategyModalPage {
     @FindBy(id = "quoteInput")
     private WebElement quoteInput;
 
-    @FindBy(id = "selectCrypto")
+    @FindBy(id = "getAssetPairDataResponse")
     private WebElement cryptoValidity;
 
-    @FindBy(id = "saveButton")
+    @FindBy(id = "saveStrategyButton")
     private WebElement saveButton;
 
-    @FindBy(id = "saveModal")
+    @FindBy(id = "saveStrategyResponse")
     private WebElement saveOutcome;
 
     @FindBy(id = "strategyName")

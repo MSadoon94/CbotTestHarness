@@ -48,6 +48,6 @@ public class LoadCardGlue {
 
     @Then("card load error will be displayed")
     public void cardLoadErrorWillBeDisplayed() {
-        assertThat(page.getCardPasswordResponse().getText(), is("Card password is invalid."));
+        assertThat(page.getCardPasswordResponse().getText(), is("Card Password is invalid."));
     }
 }

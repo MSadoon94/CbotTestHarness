@@ -91,7 +91,7 @@ public class TestListener {
         page.getConfirmPass().sendKeys("TestPassword1-");
         page.getCreateButton().click();
 
-        assertThat(page.getSubmitOutcome().getText(), is("User was created successfully."));
+        assertThat(page.getSignupResponse().getText(), is("User was created successfully."));
     }
 
     private UserStartPage getStartPage() {

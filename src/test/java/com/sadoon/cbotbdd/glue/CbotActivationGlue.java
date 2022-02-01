@@ -43,7 +43,7 @@ public class CbotActivationGlue {
 
     @Given("user selects strategy for cbot to use")
     public void userSelectsStrategyForCbotToUse() {
-        page.getStrategyActDetails().click();
+        page.getStrategyDetails().click();
 
         Waiter.waitUntilElementVisible(driver, page.getStrategyCheckbox());
         page.getStrategyCheckbox().click();

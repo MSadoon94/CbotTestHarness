@@ -1,11 +1,13 @@
 package com.sadoon.cbotbdd.pages;
 
-import org.openqa.selenium.By;
+import com.sadoon.cbotbdd.glue.util.Waiter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class UserStartPage {
 
@@ -29,8 +31,11 @@ public class UserStartPage {
     @FindBy(id = "loginButton")
     private WebElement loginButton;
 
-    @FindBy(id = "startResponse")
-    private WebElement submitOutcome;
+    @FindBy(id = "loginResponse")
+    private WebElement loginResponse;
+
+    @FindBy(id = "signupResponse")
+    private WebElement signupResponse;
 
     public UserStartPage(WebDriver driver) {
         this.driver = driver;
@@ -41,7 +46,7 @@ public class UserStartPage {
     }
 
     public WebElement getHomePageHeading() {
-        WebDriverWait waitForRedirect = new WebDriverWait(driver, 5);
+        WebDriverWait waitForRedirect = new WebDriverWait(driver, Duration.ofSeconds(5));
 
         waitForRedirect.until(ExpectedConditions.textToBePresentInElement(heading, "User Home"));
 
@@ -68,13 +73,13 @@ public class UserStartPage {
         return loginButton;
     }
 
-    public WebElement getSubmitOutcome() {
-        WebDriverWait waitForSubmit = new WebDriverWait(driver, 5);
+    public WebElement getLoginResponse() {
+        Waiter.waitUntilOutcomeNotBlank(driver, loginResponse);
+        return loginResponse;
+    }
 
-        //Wait until outcome is not blank.
-        waitForSubmit.until(ExpectedConditions.not(
-                ExpectedConditions.textToBe(By.id("startResponse"), "")));
-
-        return submitOutcome;
+    public WebElement getSignupResponse() {
+        Waiter.waitUntilOutcomeNotBlank(driver, signupResponse);
+        return signupResponse;
     }
 }
