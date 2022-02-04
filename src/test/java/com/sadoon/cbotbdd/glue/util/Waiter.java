@@ -43,4 +43,17 @@ public class Waiter {
 
         wait.until(webDriver -> element.getCssValue(value).equals(expectation));
     }
+
+    public static void waitForAttributeToMatchExpectation(WebDriver driver, WebElement element,
+                                                          String value, String expectation){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        wait.until(webDriver -> element.getAttribute(value).equals(expectation));
+    }
+
+    public static void waitForConditionToBeMet(WebDriver driver, boolean condition){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        wait.until(webDriver -> condition);
+    }
 }

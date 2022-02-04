@@ -31,7 +31,7 @@ public class LoadCardGlue {
 
     @When("user submits valid password for password validation")
     public void userSubmitsValidPasswordForPasswordValidation() {
-        page.getCardPasswordVerify().sendKeys(System.getenv("KRAKEN_PRIVATE_KEY"));
+        page.getCardPasswordVerify().sendKeys("MockCardPassword");
         page.getCardPasswordButton().click();
     }
 

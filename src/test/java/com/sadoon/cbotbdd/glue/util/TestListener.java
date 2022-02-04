@@ -1,7 +1,8 @@
 package com.sadoon.cbotbdd.glue.util;
 
-import com.mongodb.client.result.UpdateResult;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sadoon.cbotbdd.database.MongoRepo;
+import com.sadoon.cbotbdd.glue.util.mockbrokerage.JsonFileUtil;
 import com.sadoon.cbotbdd.glue.util.mockbrokerage.MockBrokerageFactory;
 import com.sadoon.cbotbdd.pages.UserHomePage;
 import com.sadoon.cbotbdd.pages.UserStartPage;
@@ -17,20 +18,27 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Map;
 import java.util.logging.Level;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class TestListener {
+    public static Logger LOGGER = LoggerFactory.getLogger(TestListener.class);
+    public static ObjectMapper MAPPER = new ObjectMapper();
     private final MongoRepo repo;
     private WebDriver driver;
-    private String username = "TestUser";
+    private DatabaseInitializer databaseInit;
+    private JsonFileUtil fileUtil;
 
     public TestListener() {
-        this.repo = new MongoRepo();
+        startDriver();
+        databaseInit = new DatabaseInitializer();
+        this.repo = databaseInit.getRepo();
+        this.fileUtil = databaseInit.getFileUtil();
         new MockBrokerageFactory(repo);
     }
 
@@ -42,46 +50,25 @@ public class TestListener {
         return repo;
     }
 
+    public JsonFileUtil getFileUtil() {
+        return fileUtil;
+    }
+
     @Before("@sign-up")
     public void setUpForSignUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
-    @Before("@login")
-    public void setUpForLogin() {
-        UserStartPage page = getStartPage();
+    @Before(value = "not (@sign-up or @login or @no-login)", order = 3)
+    public void signInUser() {
+        UserStartPage page = PageFactory.initElements(driver, UserStartPage.class);
+        page.getName().sendKeys("TestUser");
+        page.getPass().sendKeys("TestPassword1-");
 
-        signUp(page);
-    }
-
-    @Before(value = "not (@sign-up or @login)", order = 0)
-    public void setUpWithUserEntry() {
-        UserStartPage page = getStartPage();
-
-        signUp(page);
         page.getLoginButton().click();
 
         assertThat(page.getHomePageHeading().getText(), is("User Home"));
-    }
-
-    @Before("@load-card or @silent-refresh")
-    public void setUpWithCardSaved() {
-        saveCard(PageFactory.initElements(driver, UserHomePage.class));
-    }
-
-    @Before("@cbot-activation")
-    public void setUpWithStrategySaved(){
-        UpdateResult result = repo.setStrategies(username,
-                Map.of("MockStrategy",
-                        Map.of(
-                                "name", "MockStrategy",
-                                "base:", "USD",
-                                "quote:", "BTC"
-                        )
-                ));
-
-        assertThat(result.getModifiedCount(), is(1L));
     }
 
     public void signUp(UserStartPage page) {
@@ -94,12 +81,10 @@ public class TestListener {
         assertThat(page.getSignupResponse().getText(), is("User was created successfully."));
     }
 
-    private UserStartPage getStartPage() {
-
+    private void startDriver(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(getOptionsForLogging());
         driver.get("http://localhost:3000/start");
-        return PageFactory.initElements(driver, UserStartPage.class);
     }
 
     private ChromeOptions getOptionsForLogging() {
@@ -110,18 +95,6 @@ public class TestListener {
         return options;
     }
 
-    private void saveCard(UserHomePage page) {
-        page.getNewCardButton().click();
-
-        page.getCardNameInput().sendKeys("MockCard");
-        page.getCardAccountInput().sendKeys(System.getenv("KRAKEN_API_KEY"));
-        page.getCardPasswordInput().sendKeys(System.getenv("KRAKEN_PRIVATE_KEY"));
-        page.getCardBrokerageInput().sendKeys("kraken");
-
-        page.getSaveCardButton().click();
-
-        assertThat(page.getSaveCardResponse().getText(), is("Card was saved successfully."));
-    }
 
     @After
     public void onTestFailure(Scenario scenario) {

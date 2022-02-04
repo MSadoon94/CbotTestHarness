@@ -1,6 +1,5 @@
 package com.sadoon.cbotbdd.glue.util.mockbrokerage;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sadoon.cbotbdd.database.MongoRepo;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -9,7 +8,7 @@ import java.io.IOException;
 
 public class MockBrokerageFactory {
 
-    private ResponseFileReader fileReader;
+    private JsonFileUtil fileReader;
     private MockBrokerage brokerage;
     private final MongoRepo repo;
     private String brokerageName;
@@ -39,11 +38,8 @@ public class MockBrokerageFactory {
     }
 
     private void setFileReader(){
-        try {
-            fileReader = new ResponseFileReader(new ObjectMapper(), brokerageName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        fileReader = new JsonFileUtil();
+        fileReader.setFileName(brokerageName);
     }
 
     @After("@mock-kraken")

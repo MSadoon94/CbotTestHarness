@@ -1,7 +1,40 @@
 {
-  "CbotStatus": {
-    "isActive": true,
-    "activeStrategies": []
+  "User": {
+    "id": "ea9bb85f-c05c-44dd-a004-4358b102bc9a",
+    "_id": "ea9bb85f-c05c-44dd-a004-4358b102bc9a",
+    "username": "TestUser",
+    "password": "$2a$10$QrBT3Lcm6p/MZIYVwlibuu2oZzYsOUXuNo9OUV3MjjN/CCfquJtEW",
+    "authority": [
+      {
+        "role": "USER",
+        "_class": "org.springframework.security.core.authority.SimpleGrantedAuthority"
+      }
+    ],
+    "cards": {
+      "MockCard": {
+        "cardName": "MockCard",
+        "password": "MockCardPassword",
+        "balances": {"ZUSD": "100"}
+      }
+    },
+    "cbotStatus": {
+      "isActive": false,
+      "activeStrategies": [
+        "MockStrategy"
+      ]
+    },
+    "strategies": {
+      "MockStrategy": {
+        "name": "MockStrategy",
+        "base": "BTC",
+        "quote": "USD",
+        "stopLoss": "10",
+        "maxPosition": "10",
+        "targetProfit": "10",
+        "movingStopLoss": "10",
+        "maxLoss": "10",
+        "longEntry": "10"
+      }
+    }
   }
-
 }
