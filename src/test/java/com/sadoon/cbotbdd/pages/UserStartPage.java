@@ -1,6 +1,6 @@
 package com.sadoon.cbotbdd.pages;
 
-import com.sadoon.cbotbdd.glue.util.Waiter;
+import com.sadoon.cbotbdd.util.Waiter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

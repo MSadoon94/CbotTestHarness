@@ -1,6 +1,6 @@
 package com.sadoon.cbotbdd.glue;
 
-import com.sadoon.cbotbdd.glue.util.TestListener;
+import com.sadoon.cbotbdd.util.TestListener;
 import com.sadoon.cbotbdd.pages.UserStartPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

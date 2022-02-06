@@ -1,7 +1,7 @@
-package com.sadoon.cbotbdd.glue.util;
+package com.sadoon.cbotbdd.util;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.sadoon.cbotbdd.database.MongoRepo;
-import com.sadoon.cbotbdd.glue.util.mockbrokerage.JsonFileUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.bson.Document;
@@ -12,6 +12,7 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static com.sadoon.cbotbdd.util.TestListener.MAPPER;
 
 public class DatabaseInitializer {
     private final MongoRepo repo;
@@ -47,6 +48,21 @@ public class DatabaseInitializer {
                         "activeStrategies", List.of("MockStrategy"))
         );
         repo.replaceUser(USERNAME, user);
+    }
+
+    @Before("@load-card")
+    public void setCardPassword(){
+        String password = new MockPasswordGenerator()
+                        .encryptCardPassword("MockCard", "MockCardPassword", USERNAME);
+
+        JsonNode user = repo.getUserAsNode(USERNAME);
+        Map card = MAPPER.convertValue(user.get("cards").get("MockCard"), Map.class);
+        card.put("password", password);
+        Document userDoc = repo.getUserAsDocument(USERNAME);
+        userDoc.append("cards",
+                Map.of("MockCard", card));
+
+        repo.replaceUser(USERNAME, userDoc);
     }
 
     @After

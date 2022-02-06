@@ -8,8 +8,8 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
-import com.sadoon.cbotbdd.glue.util.mockbrokerage.JsonFileUtil;
-import com.sadoon.cbotbdd.glue.util.mockbrokerage.MockBrokerage;
+import com.sadoon.cbotbdd.util.JsonFileUtil;
+import com.sadoon.cbotbdd.util.mockbrokerage.MockBrokerage;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 

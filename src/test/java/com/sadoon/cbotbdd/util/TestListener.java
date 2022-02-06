@@ -1,10 +1,8 @@
-package com.sadoon.cbotbdd.glue.util;
+package com.sadoon.cbotbdd.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sadoon.cbotbdd.database.MongoRepo;
-import com.sadoon.cbotbdd.glue.util.mockbrokerage.JsonFileUtil;
-import com.sadoon.cbotbdd.glue.util.mockbrokerage.MockBrokerageFactory;
-import com.sadoon.cbotbdd.pages.UserHomePage;
+import com.sadoon.cbotbdd.util.mockbrokerage.MockBrokerageFactory;
 import com.sadoon.cbotbdd.pages.UserStartPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -94,7 +92,6 @@ public class TestListener {
         options.setCapability("goog:loggingPrefs", logPrefs);
         return options;
     }
-
 
     @After
     public void onTestFailure(Scenario scenario) {

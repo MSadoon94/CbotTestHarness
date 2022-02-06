@@ -1,8 +1,8 @@
 package com.sadoon.cbotbdd.glue;
 
 import com.sadoon.cbotbdd.database.MongoRepo;
-import com.sadoon.cbotbdd.glue.util.TestListener;
-import com.sadoon.cbotbdd.glue.util.Waiter;
+import com.sadoon.cbotbdd.util.TestListener;
+import com.sadoon.cbotbdd.util.Waiter;
 import com.sadoon.cbotbdd.pages.UserHomePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

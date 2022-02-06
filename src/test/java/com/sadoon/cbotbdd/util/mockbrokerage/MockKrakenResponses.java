@@ -1,5 +1,6 @@
-package com.sadoon.cbotbdd.glue.util.mockbrokerage;
+package com.sadoon.cbotbdd.util.mockbrokerage;
 
+import com.sadoon.cbotbdd.util.JsonFileUtil;
 import okhttp3.mockwebserver.MockResponse;
 
 public class MockKrakenResponses implements MockBrokerageResponses{

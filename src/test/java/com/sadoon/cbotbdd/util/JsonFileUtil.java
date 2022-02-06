@@ -1,4 +1,4 @@
-package com.sadoon.cbotbdd.glue.util.mockbrokerage;
+package com.sadoon.cbotbdd.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.sadoon.cbotbdd.glue.util.TestListener.LOGGER;
-import static com.sadoon.cbotbdd.glue.util.TestListener.MAPPER;
+import static com.sadoon.cbotbdd.util.TestListener.LOGGER;
+import static com.sadoon.cbotbdd.util.TestListener.MAPPER;
 
 public class JsonFileUtil {
     private InputStream fileInputStream;

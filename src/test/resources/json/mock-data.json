@@ -14,7 +14,14 @@
       "MockCard": {
         "cardName": "MockCard",
         "password": "MockCardPassword",
-        "balances": {"ZUSD": "100"}
+        "balances": {
+          "balances": {
+            "ZUSD": "0.0649",
+            "XETH": "0.0189940800",
+            "XXBT": "0.0013089600",
+            "XXMR": "0.3307315700"
+          }
+        }
       }
     },
     "cbotStatus": {

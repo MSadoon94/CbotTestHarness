@@ -1,4 +1,4 @@
-package com.sadoon.cbotbdd.glue.util;
+package com.sadoon.cbotbdd.util;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

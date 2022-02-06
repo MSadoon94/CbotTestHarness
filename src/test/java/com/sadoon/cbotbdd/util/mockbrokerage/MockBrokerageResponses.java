@@ -1,4 +1,4 @@
-package com.sadoon.cbotbdd.glue.util.mockbrokerage;
+package com.sadoon.cbotbdd.util.mockbrokerage;
 
 import okhttp3.mockwebserver.MockResponse;
 
