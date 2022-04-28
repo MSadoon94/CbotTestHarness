@@ -32,7 +32,7 @@ public class RefineStrategyGlue {
                 "target-profit", page.getTargetProfitInput(),
                 "moving-stop-loss", page.getMovingStopLossInput(),
                 "max-loss", page.getMaxLossInput(),
-                "long-entry", page.getLongEntryInput()
+                "entry", page.getEntryInput()
         );
     }
 
@@ -59,7 +59,11 @@ public class RefineStrategyGlue {
 
         loadStrategy();
 
-        refinements.forEach((key, value) -> assertThat(validation.get(key).getAttribute("value"), is(value)));
+
+        refinements.forEach((key, value) -> {
+            Waiter.waitUntilValueIsNotBlank(driver, validation.get(key));
+            assertThat(validation.get(key).getAttribute("value"), is(value));
+        });
     }
 
     private void loadStrategy() {

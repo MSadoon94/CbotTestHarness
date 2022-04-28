@@ -12,5 +12,5 @@ Feature: refine strategy
       | target-profit    | 5    |
       | moving-stop-loss | 10   |
       | max-loss         | 1000 |
-      | long-entry       | 10   |
+      | entry            | 10   |
     Then user will see all saved refinements on load

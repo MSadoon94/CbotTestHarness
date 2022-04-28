@@ -56,6 +56,7 @@ public class StrategyManagementGlue {
         page.getStrategyNameInput().sendKeys(table.cell(1, 0));
         page.getBaseInput().sendKeys(table.cell(2, 0));
         page.getQuoteInput().sendKeys(table.cell(3, 0));
+        page.getExchangeInput().sendKeys(table.cell(4, 0));
         assertThat(page.getCryptoValidity().getText(), is("✔"));
     }
 

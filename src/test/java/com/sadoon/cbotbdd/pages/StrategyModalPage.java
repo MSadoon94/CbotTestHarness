@@ -10,6 +10,9 @@ import org.openqa.selenium.support.ui.Select;
 public class StrategyModalPage {
     private final WebDriver driver;
 
+    @FindBy(id = "strategyExchangeInput")
+    private WebElement exchangeInput;
+
     @FindBy(id = "baseInput")
     private WebElement baseInput;
 
@@ -46,11 +49,15 @@ public class StrategyModalPage {
     @FindBy(id = "maxLossInput")
     private WebElement maxLossInput;
 
-    @FindBy(id = "longEntryInput")
-    private WebElement longEntryInput;
+    @FindBy(id = "entryInput")
+    private WebElement entryInput;
 
     public StrategyModalPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public WebElement getExchangeInput() {
+        return exchangeInput;
     }
 
     public WebElement getBaseInput() {
@@ -107,7 +114,7 @@ public class StrategyModalPage {
         return maxLossInput;
     }
 
-    public WebElement getLongEntryInput() {
-        return longEntryInput;
+    public WebElement getEntryInput() {
+        return entryInput;
     }
 }

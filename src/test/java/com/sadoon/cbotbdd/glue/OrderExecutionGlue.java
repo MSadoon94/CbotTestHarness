@@ -36,6 +36,11 @@ public class OrderExecutionGlue {
 
         page.getCbotPowerButton().click();
 
+        Waiter.waitForCssValueToMatchExpectation(
+                driver, page.getCbotPowerButton(),
+                "background-color", "rgba(0, 255, 0, 0.75)"
+        );
+
         assertThat(page.getCbotPowerButton().getAttribute("data-power-status"), is("active"));
     }
 

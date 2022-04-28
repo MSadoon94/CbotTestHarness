@@ -32,10 +32,11 @@ public class CryptoSelectionGlue {
         assertThat(homePage.getStrategyModal().isDisplayed(), is(true));
     }
 
-    @When("user enters this symbol pair")
-    public void userEntersThisSymbolPair(DataTable table) {
-        modalPage.getBaseInput().sendKeys(table.cell(1,0));
-        modalPage.getQuoteInput().sendKeys(table.cell(1,1));
+    @When("user enters this symbol pair and exchange")
+    public void userEntersThisSymbolPairAndExchange(DataTable table) {
+        modalPage.getExchangeInput().sendKeys(table.cell(1, 0));
+        modalPage.getBaseInput().sendKeys(table.cell(1,1));
+        modalPage.getQuoteInput().sendKeys(table.cell(1,2));
     }
 
 

@@ -11,6 +11,7 @@ Feature: strategy management
     |MockStrategy|
     |BTC         |
     |USD         |
+    |Kraken      |
     Then user will see save success message
 
   @strategy-loading
@@ -21,5 +22,6 @@ Feature: strategy management
       |MockStrategy|
       |BTC         |
       |USD         |
+      |Kraken      |
     When user clicks on target strategy in load strategy combo box
     Then strategy will be displayed in modal

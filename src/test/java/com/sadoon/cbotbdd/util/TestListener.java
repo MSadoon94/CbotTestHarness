@@ -94,7 +94,7 @@ public class TestListener {
     }
 
     @After
-    public void onTestFailure(Scenario scenario) {
+    public void onTestFinish(Scenario scenario) {
         logFailScenario(scenario);
         repo.deleteAllUsers();
         driver.close();
