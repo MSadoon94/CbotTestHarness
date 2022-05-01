@@ -2,7 +2,6 @@ package com.sadoon.cbotbdd.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sadoon.cbotbdd.database.MongoRepo;
-import com.sadoon.cbotbdd.util.mockbrokerage.MockBrokerageFactory;
 import com.sadoon.cbotbdd.pages.UserStartPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -37,7 +36,6 @@ public class TestListener {
         databaseInit = new DatabaseInitializer();
         this.repo = databaseInit.getRepo();
         this.fileUtil = databaseInit.getFileUtil();
-        new MockBrokerageFactory(repo);
     }
 
     public WebDriver getDriver() {
@@ -79,7 +77,7 @@ public class TestListener {
         assertThat(page.getSignupResponse().getText(), is("User was created successfully."));
     }
 
-    private void startDriver(){
+    private void startDriver() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(getOptionsForLogging());
         driver.get("http://localhost:3000/start");

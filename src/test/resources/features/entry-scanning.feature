@@ -1,5 +1,3 @@
-@mock-brokerage
-@mock-kraken
 Feature: entry scanning
 
   Background: A registered user inputs all necessary strategy data and saves the strategy

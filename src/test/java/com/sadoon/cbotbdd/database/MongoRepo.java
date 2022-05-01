@@ -9,7 +9,6 @@ import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import com.sadoon.cbotbdd.util.JsonFileUtil;
-import com.sadoon.cbotbdd.util.mockbrokerage.MockBrokerage;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -19,7 +18,6 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class MongoRepo {
     private MongoCollection<Document> users;
-    private MongoCollection<Document> brokerages;
     private JsonFileUtil fileUtil;
 
     public MongoRepo(JsonFileUtil fileUtil) {
@@ -27,7 +25,6 @@ public class MongoRepo {
         MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"));
         MongoDatabase database = mongoClient.getDatabase("test");
         users = database.getCollection("user");
-        brokerages = database.getCollection("brokerage");
     }
 
     public void deleteAllUsers() {
@@ -46,20 +43,15 @@ public class MongoRepo {
         return users.updateOne(userQuery, updateValue);
     }
 
-    public UpdateResult replaceUser(String username, Document user){
+    public UpdateResult replaceUser(String username, Document user) {
         return users.replaceOne(eq("username", username), user);
     }
 
-    public UpdateResult setMockBrokerageUrl(MockBrokerage mockBrokerage) {
-        Document mockBrokerageQuery = new Document().append("name", mockBrokerage.getBrokerageName());
-        Bson updateUrl = Updates.set("url", mockBrokerage.getBrokerageUrl());
-        return brokerages.updateOne(mockBrokerageQuery, updateUrl);
-    }
-
-    public Document getUserAsDocument(String user){
+    public Document getUserAsDocument(String user) {
         return Objects.requireNonNull(
                 users.find(eq("username", user)).first());
     }
+
     public JsonNode getUserAsNode(String user) {
         return fileUtil.bodyToNode(
                 Objects.requireNonNull(

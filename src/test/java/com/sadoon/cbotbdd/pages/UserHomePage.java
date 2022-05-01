@@ -53,7 +53,7 @@ public class UserHomePage {
     @FindBy(id = "cardPassResponse")
     private WebElement cardPasswordResponse;
 
-    @FindBy(id = "MockCard")
+    @FindBy(id = "KRAKEN")
     private WebElement loadedCard;
 
     @FindBy(id = "strategyDetails")
@@ -65,6 +65,18 @@ public class UserHomePage {
     @FindBy(id = "cbotPowerButton")
     private WebElement cbotPowerButton;
 
+    @FindBy(id = "sideBarButton")
+    private WebElement sideBarButton;
+
+    @FindBy(id = "accountInput")
+    private WebElement credentialAccountInput;
+
+    @FindBy(id = "passwordInput")
+    private WebElement credentialPasswordInput;
+
+    @FindBy(id = "addCredentialsButton")
+    private WebElement addCredentialsButton;
+
     public UserHomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -75,6 +87,10 @@ public class UserHomePage {
 
     public Select getCardSelect(){
         return new Select(driver.findElement(By.id("loadCardsSelect")));
+    }
+
+    public Select getExchangeSelect(){
+        return new Select(driver.findElement(By.id("exchangeNameSelect")));
     }
 
     public WebElement getCardAccountInput() {
@@ -146,5 +162,21 @@ public class UserHomePage {
 
     public WebElement getCbotPowerButton() {
         return cbotPowerButton;
+    }
+
+    public WebElement getSideBarButton() {
+        return sideBarButton;
+    }
+
+    public WebElement getCredentialAccountInput() {
+        return credentialAccountInput;
+    }
+
+    public WebElement getCredentialPasswordInput() {
+        return credentialPasswordInput;
+    }
+
+    public WebElement getAddCredentialsButton() {
+        return addCredentialsButton;
     }
 }

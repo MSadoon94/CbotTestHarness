@@ -1,5 +1,3 @@
-@mock-brokerage
-@mock-kraken
 Feature: save card
 
   Background: A user has successfully registered/logged into their account
