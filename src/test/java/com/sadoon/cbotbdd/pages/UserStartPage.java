@@ -74,12 +74,10 @@ public class UserStartPage {
     }
 
     public WebElement getLoginResponse() {
-        Waiter.waitUntilOutcomeNotBlank(driver, loginResponse);
-        return loginResponse;
+        return Waiter.waitUntilOutcomeNotBlank(driver, loginResponse);
     }
 
     public WebElement getSignupResponse() {
-        Waiter.waitUntilOutcomeNotBlank(driver, signupResponse);
-        return signupResponse;
+        return Waiter.waitUntilOutcomeNotBlank(driver, signupResponse);
     }
 }

@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 public class ExchangeManagementGlue {
@@ -45,5 +46,10 @@ public class ExchangeManagementGlue {
     @Then("user will see exchange card in side bar")
     public void userWillSeeExchangeCardInSideBar() {
         assertThat(page.getLoadedCard().isDisplayed(), is(true));
+    }
+
+    @Then("user will see error message in side bar")
+    public void userWillSeeErrorMessageInSideBar() {
+        assertThat(page.getRejectedCredentialsResponse().getText(), containsString("[EAPI:Invalid key]"));
     }
 }

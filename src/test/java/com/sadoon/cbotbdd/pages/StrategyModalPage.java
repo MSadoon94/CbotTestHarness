@@ -69,8 +69,7 @@ public class StrategyModalPage {
     }
 
     public WebElement getCryptoValidity() {
-        Waiter.waitUntilOutcomeNotBlank(driver, cryptoValidity);
-        return cryptoValidity;
+       return Waiter.waitUntilOutcomeNotBlank(driver, cryptoValidity);
     }
 
     public WebElement getSaveButton() {
@@ -78,8 +77,7 @@ public class StrategyModalPage {
     }
 
     public WebElement getSaveOutcome() {
-        Waiter.waitUntilOutcomeNotBlank(driver, saveOutcome);
-        return saveOutcome;
+       return Waiter.waitUntilOutcomeNotBlank(driver, saveOutcome);
     }
 
     public Select getStrategySelect(){

@@ -14,18 +14,6 @@ public class UserHomePage {
     @FindBy(className = "title")
     private WebElement heading;
 
-    @FindBy(id = "cardNameInput")
-    private WebElement cardNameInput;
-
-    @FindBy(id = "cardAccountInput")
-    private WebElement cardAccountInput;
-
-    @FindBy(id = "cardPasswordInput")
-    private WebElement cardPasswordInput;
-
-    @FindBy(id = "cardBrokerageInput")
-    private WebElement cardBrokerageInput;
-
     @FindBy(id = "logoutButton")
     private WebElement logout;
 
@@ -34,24 +22,6 @@ public class UserHomePage {
 
     @FindBy(id = "strategyModal")
     private WebElement strategyModal;
-
-    @FindBy(id = "newCardButton")
-    private WebElement newCardButton;
-
-    @FindBy(id = "saveCardButton")
-    private WebElement saveCardButton;
-
-    @FindBy(id = "saveCardResponse")
-    private WebElement saveCardResponse;
-
-    @FindBy(id = "cardPassword")
-    private WebElement cardPasswordVerify;
-
-    @FindBy(id = "cardPasswordButton")
-    private WebElement cardPasswordButton;
-
-    @FindBy(id = "cardPassResponse")
-    private WebElement cardPasswordResponse;
 
     @FindBy(id = "KRAKEN")
     private WebElement loadedCard;
@@ -77,6 +47,9 @@ public class UserHomePage {
     @FindBy(id = "addCredentialsButton")
     private WebElement addCredentialsButton;
 
+    @FindBy(id = "rejectedCredentialsResponse")
+    private WebElement rejectedCredentialsResponse;
+
     public UserHomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -93,18 +66,6 @@ public class UserHomePage {
         return new Select(driver.findElement(By.id("exchangeNameSelect")));
     }
 
-    public WebElement getCardAccountInput() {
-        return cardAccountInput;
-    }
-
-    public WebElement getCardPasswordInput() {
-        return cardPasswordInput;
-    }
-
-    public WebElement getCardBrokerageInput() {
-        return cardBrokerageInput;
-    }
-
     public WebElement getLogout() {
         return logout;
     }
@@ -115,37 +76,6 @@ public class UserHomePage {
 
     public WebElement getStrategyModal() {
         return Waiter.waitUntilElementVisible(driver, strategyModal);
-    }
-
-    public WebElement getCardNameInput() {
-        return Waiter.waitUntilElementVisible(driver, cardNameInput);
-    }
-
-    public WebElement getNewCardButton() {
-        return newCardButton;
-    }
-
-    public WebElement getSaveCardButton() {
-        return saveCardButton;
-    }
-
-    public WebElement getSaveCardResponse() {
-        Waiter.waitUntilOutcomeNotBlank(driver, saveCardResponse);
-        return saveCardResponse;
-    }
-
-    public WebElement getCardPasswordVerify() {
-        return Waiter.waitUntilElementVisible(driver, cardPasswordVerify);
-    }
-
-    public WebElement getCardPasswordButton() {
-
-        return Waiter.waitUntilElementVisible(driver, cardPasswordButton);
-    }
-
-    public WebElement getCardPasswordResponse() {
-        Waiter.waitUntilOutcomeNotBlank(driver, cardPasswordResponse);
-        return cardPasswordResponse;
     }
 
     public WebElement getLoadedCard() {
@@ -178,5 +108,9 @@ public class UserHomePage {
 
     public WebElement getAddCredentialsButton() {
         return addCredentialsButton;
+    }
+
+    public WebElement getRejectedCredentialsResponse(){
+        return Waiter.waitUntilOutcomeNotBlank(driver, rejectedCredentialsResponse);
     }
 }

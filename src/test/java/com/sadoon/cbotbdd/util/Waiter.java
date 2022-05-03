@@ -12,11 +12,11 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class Waiter {
 
-    public static Boolean waitUntilOutcomeNotBlank(WebDriver driver, WebElement element){
+    public static WebElement waitUntilOutcomeNotBlank(WebDriver driver, WebElement element){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-      return wait.until(not(
+        wait.until(not(
                 textToBe(By.id(element.getAttribute("id")), "")));
+        return element;
     }
 
     public static WebElement waitUntilElementVisible(WebDriver driver, WebElement element){
