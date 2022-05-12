@@ -10,29 +10,16 @@
         "_class": "org.springframework.security.core.authority.SimpleGrantedAuthority"
       }
     ],
-    "cards": {
-      "MockCard": {
-        "cardName": "MockCard",
-        "password": "MockCardPassword",
-        "balances": {
-          "balances": {
-            "ZUSD": "0.0649",
-            "XETH": "0.0189940800",
-            "XXBT": "0.0013089600",
-            "XXMR": "0.3307315700"
-          }
-        }
-      }
-    },
     "cbotStatus": {
       "isActive": false,
       "activeStrategies": [
-        "MockStrategy"
       ]
     },
     "strategies": {
       "MockStrategy": {
         "name": "MockStrategy",
+        "type": "Long",
+        "exchange": "KRAKEN",
         "base": "BTC",
         "quote": "USD",
         "stopLoss": "10",
@@ -40,7 +27,10 @@
         "targetProfit": "10",
         "movingStopLoss": "10",
         "maxLoss": "10",
-        "longEntry": "10"
+        "entry": "10",
+        "longEntry": "10",
+        "timeFrame": "1",
+        "timeUnit": "Day"
       }
     }
   }

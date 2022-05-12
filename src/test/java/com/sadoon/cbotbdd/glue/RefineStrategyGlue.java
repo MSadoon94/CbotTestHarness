@@ -1,8 +1,8 @@
 package com.sadoon.cbotbdd.glue;
 
+import com.sadoon.cbotbdd.pages.StrategyModalPage;
 import com.sadoon.cbotbdd.util.TestListener;
 import com.sadoon.cbotbdd.util.Waiter;
-import com.sadoon.cbotbdd.pages.StrategyModalPage;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;

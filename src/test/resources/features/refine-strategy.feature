@@ -5,6 +5,9 @@ Feature: refine strategy
 
   Scenario: User refines strategy by adding all available choices
     Given strategy modal is open
+    And user enters this symbol pair and exchange
+      | Exchange | Base | Quote |
+      | Kraken   | BTC  | USD   |
     When user clicks on refine strategy widget
     And saves all these refinements to the strategy
       | stop-loss        | 100  |

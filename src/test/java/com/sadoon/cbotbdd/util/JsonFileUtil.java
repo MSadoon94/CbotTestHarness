@@ -11,19 +11,19 @@ import static com.sadoon.cbotbdd.util.TestListener.MAPPER;
 
 public class JsonFileUtil {
     private InputStream fileInputStream;
+    private JsonNode baseNode;
 
     public void setFileName(String envKey) {
         fileInputStream = JsonFileUtil.class.getResourceAsStream(System.getenv(envKey));
-    }
-
-    public String getBody(String jsonKey) {
-        JsonNode node = MAPPER.nullNode();
         try {
-            node = MAPPER.readTree(fileInputStream);
+            baseNode = MAPPER.readTree(fileInputStream);
         } catch (IOException e) {
             LOGGER.error(String.format("Error while reading: %1s caused by: %2s", e.getMessage(), e.getCause()));
         }
-        return node.get(jsonKey).toString();
+    }
+
+    public String getBody(String jsonKey) {
+        return baseNode.get(jsonKey).toString();
     }
 
     public JsonNode bodyToNode(String body) {
@@ -31,8 +31,7 @@ public class JsonFileUtil {
         try {
             node = MAPPER.readTree(body);
         } catch (JsonProcessingException e) {
-            LOGGER.error((String.format("Json error caused at location: %1s  with message: %2s",
-                    e.getLocation(), e.getMessage())));
+            LOGGER.error(String.format("Error while reading: %1s caused by: %2s", e.getMessage(), e.getCause()));
         }
         return node;
     }

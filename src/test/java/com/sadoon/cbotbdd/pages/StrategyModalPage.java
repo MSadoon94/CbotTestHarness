@@ -31,7 +31,7 @@ public class StrategyModalPage {
     @FindBy(id = "strategyName")
     private WebElement strategyNameInput;
 
-    @FindBy(id = "refineDetails")
+    @FindBy(id = "refineDetailsSummary")
     private WebElement refineDetails;
 
     @FindBy(id = "stopLossInput")

@@ -1,13 +1,16 @@
 package com.sadoon.cbotbdd.glue;
 
+import com.sadoon.cbotbdd.pages.UserHomePage;
 import com.sadoon.cbotbdd.util.TestListener;
 import com.sadoon.cbotbdd.util.Waiter;
-import com.sadoon.cbotbdd.pages.UserHomePage;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+
+import java.time.Duration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -16,6 +19,7 @@ public class OrderExecutionGlue {
 
     private WebDriver driver;
     private UserHomePage page;
+    private final int timeout = 1000;
 
     public OrderExecutionGlue(TestListener listener) {
         this.driver = listener.getDriver();
@@ -23,34 +27,56 @@ public class OrderExecutionGlue {
 
     }
 
-    @Given("user selects saved strategy and activates cbot")
-    public void userSelectSavedStrategyAndActivatesCbot() {
+    @Given("user selects saved strategy and creates trade")
+    public void userSelectsSavedStrategyAndCreatesTrade() {
         page.getStrategyDetails().click();
-        Waiter.waitUntilElementVisible(driver, page.getStrategyCheckbox());
         page.getStrategyCheckbox().click();
+        page.getTradeDetails().click();
 
-        Waiter.waitForCssValueToMatchExpectation(
-                driver, page.getCbotPowerButton(),
-                "background-color", "rgba(255, 0, 0, 0.5)"
+        assertThat(page.getTradeStatus().isDisplayed(), is(true));
+        Waiter.waitForConditionToBeMet(
+                driver,
+                Duration.ofSeconds(5),
+                page.getTradeStatus().getText().equals("CREATION")
         );
+    }
 
-        page.getCbotPowerButton().click();
 
-        Waiter.waitForCssValueToMatchExpectation(
-                driver, page.getCbotPowerButton(),
-                "background-color", "rgba(0, 255, 0, 0.75)"
-        );
+    @And("trade status is entry searching")
+    public void tradeStatusIsEntrySearching() {
+        for (int i = 0; !page.getTradeStatus().getText().equals("ENTRY_SEARCHING"); i++) {
+            if (i == timeout) {
+                break;
+            } else {
+                page = PageFactory.initElements(driver, UserHomePage.class);
+            }
+        }
 
-        assertThat(page.getCbotPowerButton().getAttribute("data-power-status"), is("active"));
+        assertThat(page.getTradeStatus().getText(), is("ENTRY_SEARCHING"));
     }
 
     @When("potential entry point is found")
     public void potentialEntryPointIsFound() {
-
+        for (int i = 0; !page.getCurrentTradePrice().getText().equals(page.getTargetTradePrice().getText()); i++) {
+            if (i == timeout) {
+                break;
+            } else {
+                page = PageFactory.initElements(driver, UserHomePage.class);
+            }
+        }
+        assertThat(page.getCurrentTradePrice().getText(), is(page.getTargetTradePrice().getText()));
     }
 
-    @Then("user will see a buy order placed message displayed")
-    public void userWillSeeABuyOrderPlacedMessageDisplayed() {
-
+    @Then("user will see trade status change to entry found")
+    public void userWillSeeTradeStatusChangeToEntryFound() {
+        for (int i = 0; !page.getTradeStatus().getText().equals("ENTRY_FOUND"); i++) {
+            if (i == timeout) {
+                break;
+            } else {
+                page = PageFactory.initElements(driver, UserHomePage.class);
+            }
+        }
+        assertThat(page.getTradeStatus().getText(), is("ENTRY_FOUND"));
     }
+
 }

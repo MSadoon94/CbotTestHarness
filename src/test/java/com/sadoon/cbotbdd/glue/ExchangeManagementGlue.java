@@ -24,6 +24,18 @@ public class ExchangeManagementGlue {
         page = PageFactory.initElements(driver, UserHomePage.class);
     }
 
+    @Given("user registers exchange")
+    public void userRegistersExchange(){
+        userClicksOnSideBar();
+        page.getExchangeSelect().getWrappedElement().click();
+        page.getExchangeSelect().selectByVisibleText("Kraken");
+        Waiter.waitUntilElementVisible(driver, page.getCredentialAccountInput());
+        page.getCredentialAccountInput().sendKeys("MockAccount");
+        page.getCredentialPasswordInput().sendKeys("MockPassword");
+        clicksAddCredentialButton();
+        userClicksOnSideBar();
+    }
+
     @Given("user clicks on side bar")
     public void userClicksOnSideBar(){
         page.getSideBarButton().click();

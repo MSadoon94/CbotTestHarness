@@ -50,19 +50,31 @@ public class UserHomePage {
     @FindBy(id = "rejectedCredentialsResponse")
     private WebElement rejectedCredentialsResponse;
 
+    @FindBy(id = "MockStrategyTradeDetails")
+    private WebElement tradeDetails;
+
+    @FindBy(id = "MockStrategyTradeStatus")
+    private WebElement tradeStatus;
+
+    @FindBy(id = "MockStrategyTradeCurrent")
+    private WebElement currentTradePrice;
+
+    @FindBy(id = "MockStrategyTradeTarget")
+    private WebElement targetTradePrice;
+
     public UserHomePage(WebDriver driver) {
         this.driver = driver;
     }
-    
+
     public WebElement getHeading() {
         return heading;
     }
 
-    public Select getCardSelect(){
+    public Select getCardSelect() {
         return new Select(driver.findElement(By.id("loadCardsSelect")));
     }
 
-    public Select getExchangeSelect(){
+    public Select getExchangeSelect() {
         return new Select(driver.findElement(By.id("exchangeNameSelect")));
     }
 
@@ -83,11 +95,11 @@ public class UserHomePage {
     }
 
     public WebElement getStrategyDetails() {
-        return strategyDetails;
+        return Waiter.waitUntilElementVisible(driver, strategyDetails);
     }
 
     public WebElement getStrategyCheckbox() {
-        return strategyCheckbox;
+        return Waiter.waitUntilElementVisible(driver, strategyCheckbox);
     }
 
     public WebElement getCbotPowerButton() {
@@ -110,7 +122,23 @@ public class UserHomePage {
         return addCredentialsButton;
     }
 
-    public WebElement getRejectedCredentialsResponse(){
+    public WebElement getRejectedCredentialsResponse() {
         return Waiter.waitUntilOutcomeNotBlank(driver, rejectedCredentialsResponse);
+    }
+
+    public WebElement getTradeDetails() {
+        return Waiter.waitUntilElementVisible(driver, tradeDetails);
+    }
+
+    public WebElement getTradeStatus() {
+        return Waiter.waitUntilElementVisible(driver, tradeStatus);
+    }
+
+    public WebElement getCurrentTradePrice() {
+        return currentTradePrice;
+    }
+
+    public WebElement getTargetTradePrice() {
+        return targetTradePrice;
     }
 }
