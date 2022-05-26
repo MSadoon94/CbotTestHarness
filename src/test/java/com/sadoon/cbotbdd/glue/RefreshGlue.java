@@ -38,7 +38,7 @@ public class RefreshGlue {
 
     @Then("user will stay logged in and on the same page")
     public void userWillStayLoggedInAndOnTheSamePage() {
-        assertThat(page.getHeading().getText(), is("User Home"));
+        assertThat(page.getHomePageDiv().isDisplayed(), is(true));
     }
 
 

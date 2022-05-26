@@ -4,7 +4,6 @@ import com.sadoon.cbotbdd.pages.StrategyModalPage;
 import com.sadoon.cbotbdd.util.TestListener;
 import com.sadoon.cbotbdd.util.Waiter;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
@@ -36,12 +35,7 @@ public class RefineStrategyGlue {
         );
     }
 
-    @When("user clicks on refine strategy widget")
-    public void userClicksOnRefineStrategyWidget() {
-        page.getRefineDetails().click();
-    }
-
-    @And("saves all these refinements to the strategy")
+    @When("user saves all these refinements to the strategy")
     public void savesAllTheseRefinementsToTheStrategy(DataTable table) {
         refinements = table.asMap();
 
@@ -58,7 +52,6 @@ public class RefineStrategyGlue {
         refinements.forEach((key, value) -> validation.get(key).clear());
 
         loadStrategy();
-
 
         refinements.forEach((key, value) -> {
             Waiter.waitUntilValueIsNotBlank(driver, validation.get(key));

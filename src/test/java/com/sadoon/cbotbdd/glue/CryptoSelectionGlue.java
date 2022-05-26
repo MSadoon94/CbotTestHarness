@@ -28,7 +28,7 @@ public class CryptoSelectionGlue {
 
     @Given("strategy modal is open")
     public void strategyModalIsOpen(){
-        homePage.getNewStrategyButton().click();
+        homePage.getStrategyManagerButton().click();
         assertThat(homePage.getStrategyModal().isDisplayed(), is(true));
     }
 

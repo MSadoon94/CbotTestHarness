@@ -27,7 +27,6 @@ public class ExchangeManagementGlue {
     @Given("user registers exchange")
     public void userRegistersExchange(){
         userClicksOnSideBar();
-        page.getExchangeSelect().getWrappedElement().click();
         page.getExchangeSelect().selectByVisibleText("Kraken");
         Waiter.waitUntilElementVisible(driver, page.getCredentialAccountInput());
         page.getCredentialAccountInput().sendKeys("MockAccount");

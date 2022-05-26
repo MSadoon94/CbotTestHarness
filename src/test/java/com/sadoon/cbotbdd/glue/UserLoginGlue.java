@@ -1,7 +1,7 @@
 package com.sadoon.cbotbdd.glue;
 
-import com.sadoon.cbotbdd.util.TestListener;
 import com.sadoon.cbotbdd.pages.UserStartPage;
+import com.sadoon.cbotbdd.util.TestListener;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -29,7 +29,7 @@ public class UserLoginGlue {
     }
 
     @And("clicks login")
-    public void andClicksLogin(){
+    public void andClicksLogin() {
         page.getName().sendKeys(page.getName().getText());
         page.getPass().sendKeys(page.getPass().getText());
         page.getLoginButton().click();
@@ -37,11 +37,11 @@ public class UserLoginGlue {
 
     @Then("user will be redirected to user home page")
     public void userWillBeRedirectedToUserHomePage() {
-        assertThat(page.getHomePageHeading().getText(), is("User Home"));
+        assertThat(page.getHomePageDiv().isDisplayed(), is(true));
     }
 
     @Then("user will see failed login message")
     public void userWillSeeFailedLoginMessage() {
-    assertThat(page.getLoginResponse().getText(), is("Error: User could not be loaded."));
+        assertThat(page.getLoginResponse().getText(), is("Error: User could not be loaded."));
     }
 }

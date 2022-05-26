@@ -16,6 +16,9 @@ public class UserStartPage {
     @FindBy(className = "title")
     private WebElement heading;
 
+    @FindBy(className = "homePage")
+    private WebElement homePageDiv;
+
     @FindBy(id = "name")
     private WebElement name;
 
@@ -45,12 +48,8 @@ public class UserStartPage {
         return heading;
     }
 
-    public WebElement getHomePageHeading() {
-        WebDriverWait waitForRedirect = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-        waitForRedirect.until(ExpectedConditions.textToBePresentInElement(heading, "User Home"));
-
-        return heading;
+    public WebElement getHomePageDiv() {
+        return Waiter.waitUntilElementVisible(driver, homePageDiv);
     }
 
     public WebElement getName() {

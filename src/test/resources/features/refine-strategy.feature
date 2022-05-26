@@ -8,8 +8,7 @@ Feature: refine strategy
     And user enters this symbol pair and exchange
       | Exchange | Base | Quote |
       | Kraken   | BTC  | USD   |
-    When user clicks on refine strategy widget
-    And saves all these refinements to the strategy
+    When user saves all these refinements to the strategy
       | stop-loss        | 100  |
       | max-position     | 200  |
       | target-profit    | 5    |

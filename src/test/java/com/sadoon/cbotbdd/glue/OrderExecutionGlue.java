@@ -7,7 +7,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 import java.time.Duration;
@@ -29,9 +31,8 @@ public class OrderExecutionGlue {
 
     @Given("user selects saved strategy and creates trade")
     public void userSelectsSavedStrategyAndCreatesTrade() {
-        page.getStrategyDetails().click();
-        page.getStrategyCheckbox().click();
-        page.getTradeDetails().click();
+        page.getStrategiesButton().click();
+        moveSliderRight();
 
         assertThat(page.getTradeStatus().isDisplayed(), is(true));
         Waiter.waitForConditionToBeMet(
@@ -77,6 +78,17 @@ public class OrderExecutionGlue {
             }
         }
         assertThat(page.getTradeStatus().getText(), is("ENTRY_FOUND"));
+    }
+
+    private void moveSliderRight(){
+        Dimension sliderSize = page.getMockStrategyOption().getSize();
+        int sliderWidth = sliderSize.getWidth();
+
+        Actions builder = new Actions(driver);
+        builder.moveToElement(page.getMockStrategyOption())
+                .dragAndDropBy(page.getMockStrategyOption(), sliderWidth, 0)
+                .build()
+                .perform();
     }
 
 }

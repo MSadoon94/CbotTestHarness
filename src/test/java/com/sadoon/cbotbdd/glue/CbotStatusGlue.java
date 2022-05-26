@@ -10,6 +10,8 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import java.time.Duration;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -26,20 +28,11 @@ public class CbotStatusGlue {
         page = PageFactory.initElements(driver, UserHomePage.class);
     }
 
-    @Given("user selects strategy for cbot to use")
-    public void userSelectsStrategyForCbotToUse() {
-        page.getStrategyDetails().click();
-
-        Waiter.waitUntilElementVisible(driver, page.getStrategyCheckbox());
-        page.getStrategyCheckbox().click();
-    }
-
     @When("user clicks on red start button")
     public void userClicksOnRedStartButton() {
-
         Waiter.waitForCssValueToMatchExpectation(
                 driver, page.getCbotPowerButton(),
-                "background-color", "rgba(255, 0, 0, 0.5)"
+                "background-color", "rgba(255, 125, 102, 1)", Duration.ofSeconds(30)
         );
 
         page.getCbotPowerButton().click();
@@ -49,13 +42,13 @@ public class CbotStatusGlue {
     public void userWillSeeGreenStartButton() {
         Waiter.waitForCssValueToMatchExpectation(
                 driver, page.getCbotPowerButton(),
-                "background-color", "rgba(0, 255, 0, 0.75)"
+                "background-color", "rgba(102, 255, 105, 1)", Duration.ofSeconds(30)
         );
 
         assertThat(
                 page.getCbotPowerButton()
                         .getCssValue("background-color"),
-                is("rgba(0, 255, 0, 0.75)")
+                is("rgba(102, 255, 105, 1)")
         );
     }
 

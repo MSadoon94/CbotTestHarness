@@ -14,11 +14,14 @@ public class UserHomePage {
     @FindBy(className = "title")
     private WebElement heading;
 
-    @FindBy(id = "logoutButton")
+    @FindBy(className = "homePage")
+    private WebElement homePageDiv;
+
+    @FindBy(id = "logOutButton")
     private WebElement logout;
 
-    @FindBy(id = "newStrategyButton")
-    private WebElement newStrategyButton;
+    @FindBy(id = "strategyManagerButton")
+    private WebElement strategyManagerButton;
 
     @FindBy(id = "strategyModal")
     private WebElement strategyModal;
@@ -26,11 +29,11 @@ public class UserHomePage {
     @FindBy(id = "KRAKEN")
     private WebElement loadedCard;
 
-    @FindBy(id = "strategyDetails")
-    private WebElement strategyDetails;
+    @FindBy(id = "strategiesButton")
+    private WebElement strategiesButton;
 
-    @FindBy(id = "MockStrategyCheckbox")
-    private WebElement strategyCheckbox;
+    @FindBy(id = "MockStrategyOption")
+    private WebElement mockStrategyOption;
 
     @FindBy(id = "cbotPowerButton")
     private WebElement cbotPowerButton;
@@ -70,6 +73,10 @@ public class UserHomePage {
         return heading;
     }
 
+    public WebElement getHomePageDiv() {
+        return Waiter.waitUntilElementVisible(driver, homePageDiv);
+    }
+
     public Select getCardSelect() {
         return new Select(driver.findElement(By.id("loadCardsSelect")));
     }
@@ -82,8 +89,8 @@ public class UserHomePage {
         return logout;
     }
 
-    public WebElement getNewStrategyButton() {
-        return newStrategyButton;
+    public WebElement getStrategyManagerButton() {
+        return strategyManagerButton;
     }
 
     public WebElement getStrategyModal() {
@@ -94,12 +101,12 @@ public class UserHomePage {
         return Waiter.waitUntilElementVisible(driver, loadedCard);
     }
 
-    public WebElement getStrategyDetails() {
-        return Waiter.waitUntilElementVisible(driver, strategyDetails);
+    public WebElement getStrategiesButton() {
+        return Waiter.waitUntilElementVisible(driver, strategiesButton);
     }
 
-    public WebElement getStrategyCheckbox() {
-        return Waiter.waitUntilElementVisible(driver, strategyCheckbox);
+    public WebElement getMockStrategyOption() {
+        return Waiter.waitUntilElementVisible(driver, mockStrategyOption);
     }
 
     public WebElement getCbotPowerButton() {

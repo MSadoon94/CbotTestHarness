@@ -64,7 +64,7 @@ public class TestListener {
 
         page.getLoginButton().click();
 
-        assertThat(page.getHomePageHeading().getText(), is("User Home"));
+        assertThat(page.getHomePageDiv().isDisplayed(), is(true));
     }
 
     public void signUp(UserStartPage page) {

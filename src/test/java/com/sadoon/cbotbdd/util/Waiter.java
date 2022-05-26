@@ -38,8 +38,8 @@ public class Waiter {
     }
 
     public static void waitForCssValueToMatchExpectation(WebDriver driver, WebElement element,
-                                                         String value, String expectation) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+                                                         String value, String expectation, Duration duration) {
+        WebDriverWait wait = new WebDriverWait(driver, duration);
 
         wait.until(webDriver -> element.getCssValue(value).equals(expectation));
     }

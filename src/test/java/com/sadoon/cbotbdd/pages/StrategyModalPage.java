@@ -31,9 +31,6 @@ public class StrategyModalPage {
     @FindBy(id = "strategyName")
     private WebElement strategyNameInput;
 
-    @FindBy(id = "refineDetailsSummary")
-    private WebElement refineDetails;
-
     @FindBy(id = "stopLossInput")
     private WebElement stopLossInput;
 
@@ -92,9 +89,6 @@ public class StrategyModalPage {
         return stopLossInput;
     }
 
-    public WebElement getRefineDetails() {
-        return refineDetails;
-    }
 
     public WebElement getMaxPositionInput() {
         return maxPositionInput;
