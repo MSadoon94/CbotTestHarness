@@ -42,13 +42,13 @@ public class CbotStatusGlue {
     public void userWillSeeGreenStartButton() {
         Waiter.waitForCssValueToMatchExpectation(
                 driver, page.getCbotPowerButton(),
-                "background-color", "rgba(102, 255, 105, 1)", Duration.ofSeconds(30)
+                "background-color", "rgba(0, 230, 4, 1)", Duration.ofSeconds(30)
         );
 
         assertThat(
                 page.getCbotPowerButton()
                         .getCssValue("background-color"),
-                is("rgba(102, 255, 105, 1)")
+                is("rgba(0, 230, 4, 1)")
         );
     }
 

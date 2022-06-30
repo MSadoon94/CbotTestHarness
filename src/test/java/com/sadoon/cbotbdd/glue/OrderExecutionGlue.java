@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -58,14 +59,20 @@ public class OrderExecutionGlue {
 
     @When("potential entry point is found")
     public void potentialEntryPointIsFound() {
-        for (int i = 0; !page.getCurrentTradePrice().getText().equals(page.getTargetTradePrice().getText()); i++) {
+        for (int i = 0; !hasCurrentPriceReachedTarget(page); i++) {
             if (i == timeout) {
                 break;
             } else {
                 page = PageFactory.initElements(driver, UserHomePage.class);
             }
         }
-        assertThat(page.getCurrentTradePrice().getText(), is(page.getTargetTradePrice().getText()));
+        assertThat(hasCurrentPriceReachedTarget(page), is(true));
+    }
+
+    private boolean hasCurrentPriceReachedTarget(UserHomePage page){
+        BigDecimal currentPrice = new BigDecimal(page.getCurrentTradePrice().getText());
+        BigDecimal targetPrice = new BigDecimal(page.getTargetTradePrice().getText());
+        return currentPrice.compareTo(targetPrice) <= 0;
     }
 
     @Then("user will see trade status change to entry found")
