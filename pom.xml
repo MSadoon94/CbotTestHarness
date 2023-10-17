@@ -17,7 +17,7 @@
         <aspectj.version>1.9.6</aspectj.version>
         <allure.version>2.17.3</allure.version>
         <cucumber.version>7.3.3</cucumber.version>
-        <mockwebserver.version>4.9.3</mockwebserver.version>
+        <mockwebserver.version>4.12.0</mockwebserver.version>
     </properties>
 
     <dependencies>
